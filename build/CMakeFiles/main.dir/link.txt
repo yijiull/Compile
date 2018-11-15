@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/scan.cpp.o CMakeFiles/main.dir/util.cpp.o  -o main 
+/usr/bin/c++     CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/parse.cpp.o CMakeFiles/main.dir/scan.cpp.o CMakeFiles/main.dir/symtab.cpp.o CMakeFiles/main.dir/test.cpp.o CMakeFiles/main.dir/util.cpp.o  -o main 

@@ -42,7 +42,7 @@ namespace{
             //std::cout<<int(linebuf[bufsize-1])<<std::endl;
             //std::cout<<bufsize<<std::endl;
             linepos = 0;
-			listing << lineno << ": " << linebuf << std::endl;
+			tokenfile << lineno << ": " << linebuf << std::endl;
             return linebuf[linepos++];
         }else{
             EOF_flag = true;
@@ -219,7 +219,7 @@ TokenType getToken(){
             }
         }
     }
-	listing << "\t" << lineno << ": " << std::flush;
+	tokenfile << "\t" << lineno << ": " << std::flush;
     printToken(curTK, tokenString);
     insertToken(curTK);
     return curTK;

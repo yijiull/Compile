@@ -1,15 +1,23 @@
 #include "global.h"
-#include "scan.h"
 
 int lineno = 0;
 
 std::fstream source;
-std::fstream listing;
-std::fstream code;
+std::fstream tokenfile;
+std::fstream symtablefile;
+std::fstream codefile;
 
 char *c;
 
 bool Error;
+
+#define NO_PARSE false
+
+#if NO_PARSE
+    #include "scan.h"
+#else
+    #include "parse.h"
+#endif
 
 // read size char from file
 /*
@@ -34,10 +42,17 @@ delete[] c;
 int main(int argc, char* argv[]){
     std::string file = std::string(argv[1]);
     std::string out = file + ".back";
+    std::string sym = file + ".symbal";
     source.open(file, std::ios::in);
-    listing.open(out, std::ios::out);
+#if NO_PARSE
+    tokenfile.open(out, std::ios::out);
     while(getToken()){};
     for(auto i : tokens){
         std::cout<<i->tokenString<<std::endl;
     }
+#else
+    symtablefile.open(sym, std::ios::out);
+    parse();
+
+#endif
 }

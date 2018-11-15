@@ -10,16 +10,39 @@ enum TokenType{
     TK_ASSIGN, TK_EQ, TK_LT, TK_PLUS, TK_MINUS, TK_TIMES, TK_OVER, TK_LPAREN, TK_RPAREN, TK_SEMI,
     TK_GT, TK_LE, TK_GE, TK_COMMA, TK_QUOTE //new
 };
+
+enum NodeType{
+    PROGRAM, STMT_SEQUENCE, IF_STMT, REPEAT_STMT, ASSIGN_STMT,
+    READ_STMT, WRITE_STMT, WHILE_STMT,
+    GT_EXP, GE_EXP, LT_EXP, LE_EXP, EQ_EXP, OR_EXP, AND_EXP, NOT_EXP,
+    ADD_EXP, SUB_EXP, MUL_EXP, DIV_EXP,
+    FACTOR 
+};
+
+enum ValType{
+    VT_INT, VT_BOOL, VT_STRING
+};
+
 const int MAXRESERVED = 18;
+const int MAXCHILDREN = 3;
 
 extern bool Error;
 extern int lineno;
 extern std::fstream source;
-extern std::fstream listing;
-extern std::fstream code;
+extern std::fstream tokenfile;
+extern std::fstream symtablefile;
+extern std::fstream codefile;
 
 struct Token{
     Token(){};
     TokenType tokenType;
     std::string tokenString;
+};
+
+struct TreeNode{
+    NodeType nodetype;
+    TreeNode *silbing;
+    TreeNode *child[MAXCHILDREN];
+
+    Token *tk;
 };

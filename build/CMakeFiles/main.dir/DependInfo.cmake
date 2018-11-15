@@ -5,7 +5,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/yijiull/code/easy/main.cpp" "/home/yijiull/code/easy/build/CMakeFiles/main.dir/main.cpp.o"
+  "/home/yijiull/code/easy/parse.cpp" "/home/yijiull/code/easy/build/CMakeFiles/main.dir/parse.cpp.o"
   "/home/yijiull/code/easy/scan.cpp" "/home/yijiull/code/easy/build/CMakeFiles/main.dir/scan.cpp.o"
+  "/home/yijiull/code/easy/symtab.cpp" "/home/yijiull/code/easy/build/CMakeFiles/main.dir/symtab.cpp.o"
+  "/home/yijiull/code/easy/test.cpp" "/home/yijiull/code/easy/build/CMakeFiles/main.dir/test.cpp.o"
   "/home/yijiull/code/easy/util.cpp" "/home/yijiull/code/easy/build/CMakeFiles/main.dir/util.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

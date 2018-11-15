@@ -3,12 +3,25 @@
 
 CMakeFiles/main.dir/main.cpp.o: ../global.h
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
+CMakeFiles/main.dir/main.cpp.o: ../parse.h
 CMakeFiles/main.dir/main.cpp.o: ../scan.h
+
+CMakeFiles/main.dir/parse.cpp.o: ../global.h
+CMakeFiles/main.dir/parse.cpp.o: ../parse.cpp
+CMakeFiles/main.dir/parse.cpp.o: ../parse.h
+CMakeFiles/main.dir/parse.cpp.o: ../scan.h
+CMakeFiles/main.dir/parse.cpp.o: ../symtab.h
+CMakeFiles/main.dir/parse.cpp.o: ../util.h
 
 CMakeFiles/main.dir/scan.cpp.o: ../global.h
 CMakeFiles/main.dir/scan.cpp.o: ../scan.cpp
 CMakeFiles/main.dir/scan.cpp.o: ../scan.h
 CMakeFiles/main.dir/scan.cpp.o: ../util.h
+
+CMakeFiles/main.dir/symtab.cpp.o: ../symtab.cpp
+CMakeFiles/main.dir/symtab.cpp.o: ../symtab.h
+
+CMakeFiles/main.dir/test.cpp.o: ../test.cpp
 
 CMakeFiles/main.dir/util.cpp.o: ../global.h
 CMakeFiles/main.dir/util.cpp.o: ../util.cpp

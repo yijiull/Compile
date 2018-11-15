@@ -1,6 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/main.dir/main.cpp.o"
+  "CMakeFiles/main.dir/parse.cpp.o"
   "CMakeFiles/main.dir/scan.cpp.o"
+  "CMakeFiles/main.dir/symtab.cpp.o"
+  "CMakeFiles/main.dir/test.cpp.o"
   "CMakeFiles/main.dir/util.cpp.o"
   "main.pdb"
   "main"

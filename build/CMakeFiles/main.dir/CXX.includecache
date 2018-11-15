@@ -21,6 +21,22 @@ global.h
 /home/yijiull/code/easy/global.h
 scan.h
 /home/yijiull/code/easy/scan.h
+parse.h
+/home/yijiull/code/easy/parse.h
+
+/home/yijiull/code/easy/parse.cpp
+global.h
+/home/yijiull/code/easy/global.h
+util.h
+/home/yijiull/code/easy/util.h
+scan.h
+/home/yijiull/code/easy/scan.h
+parse.h
+/home/yijiull/code/easy/parse.h
+symtab.h
+/home/yijiull/code/easy/symtab.h
+
+/home/yijiull/code/easy/parse.h
 
 /home/yijiull/code/easy/scan.cpp
 string
@@ -41,6 +57,24 @@ util.h
 /home/yijiull/code/easy/util.h
 
 /home/yijiull/code/easy/scan.h
+
+/home/yijiull/code/easy/symtab.cpp
+string
+-
+fstream
+-
+symtab.h
+/home/yijiull/code/easy/symtab.h
+unordered_map
+-
+vector
+-
+
+/home/yijiull/code/easy/symtab.h
+
+/home/yijiull/code/easy/test.cpp
+bits/stdc++.h
+-
 
 /home/yijiull/code/easy/util.cpp
 global.h

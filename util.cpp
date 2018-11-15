@@ -21,67 +21,78 @@ void printToken(TokenType token, std::string tokenString){
         case TK_STRING:
         case TK_WHILE:
         case TK_DO:
-            listing << "reserved words: " << tokenString << std::endl;
+            tokenfile << "reserved words: " << tokenString << std::endl;
             break;
         case TK_ASSIGN:
-            listing << ":=\n";
+            tokenfile << ":=\n";
             break;
         case TK_LT:
-            listing << "<\n";
+            tokenfile << "<\n";
             break;
         case TK_LE:
-            listing << "<=\n";
+            tokenfile << "<=\n";
             break;
         case TK_GT:
-            listing << ">\n";
+            tokenfile << ">\n";
             break;
         case TK_GE:
-            listing << ">=\n";
+            tokenfile << ">=\n";
             break;
         case TK_EQ:
-            listing << "=\n";
+            tokenfile << "=\n";
             break;
         case TK_LPAREN:
-            listing << "(\n";
+            tokenfile << "(\n";
             break;
         case TK_RPAREN:
-            listing << ")\n";
+            tokenfile << ")\n";
             break;
         case TK_SEMI:
-            listing << ";\n";
+            tokenfile << ";\n";
             break;
         case TK_PLUS:
-            listing << "+\n";
+            tokenfile << "+\n";
             break;
         case TK_MINUS:
-            listing << "-\n";
+            tokenfile << "-\n";
             break;
         case TK_TIMES:
-            listing << "*\n";
+            tokenfile << "*\n";
             break;
         case TK_OVER:
-            listing << "/\n";
+            tokenfile << "/\n";
             break;
         case TK_COMMA:
-            listing << ",\n";
+            tokenfile << ",\n";
             break;
         case TK_ENDFILE:
-            listing << "EOF\n";
+            tokenfile << "EOF\n";
             break;
         case TK_STR:  
-            listing << "TK_STR, val = " << tokenString << std::endl;
+            tokenfile << "TK_STR, val = " << tokenString << std::endl;
             break;
         case TK_NUM:
-            listing << "TK_NUM, val = " << tokenString << std::endl;
+            tokenfile << "TK_NUM, val = " << tokenString << std::endl;
             break;
         case TK_ID:
-            listing << "TK_ID, name = " << tokenString << std::endl;
+            tokenfile << "TK_ID, name = " << tokenString << std::endl;
             break;
         case TK_ERROR:
-            listing << "TK_ERROR, name = " << tokenString << std::endl;
+            tokenfile << "TK_ERROR, name = " << tokenString << std::endl;
             break;
         default:
-            listing << "unknown token !! \n";
+            tokenfile << "unknown token !! \n";
             break;
     }
+}
+
+
+TreeNode* newNode(NodeType nodetype){
+    TreeNode *t = new TreeNode();
+    for(int i = 0; i < MAXCHILDREN; i++){
+        t->child[i] = nullptr;
+    }
+    t->silbing = nullptr;
+    t->nodetype = nodetype;
+    return t;
 }

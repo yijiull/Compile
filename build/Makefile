@@ -150,6 +150,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+parse.o: parse.cpp.o
+
+.PHONY : parse.o
+
+# target to build an object file
+parse.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/parse.cpp.o
+.PHONY : parse.cpp.o
+
+parse.i: parse.cpp.i
+
+.PHONY : parse.i
+
+# target to preprocess a source file
+parse.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/parse.cpp.i
+.PHONY : parse.cpp.i
+
+parse.s: parse.cpp.s
+
+.PHONY : parse.s
+
+# target to generate assembly for a file
+parse.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/parse.cpp.s
+.PHONY : parse.cpp.s
+
 scan.o: scan.cpp.o
 
 .PHONY : scan.o
@@ -176,6 +203,60 @@ scan.s: scan.cpp.s
 scan.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/scan.cpp.s
 .PHONY : scan.cpp.s
+
+symtab.o: symtab.cpp.o
+
+.PHONY : symtab.o
+
+# target to build an object file
+symtab.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/symtab.cpp.o
+.PHONY : symtab.cpp.o
+
+symtab.i: symtab.cpp.i
+
+.PHONY : symtab.i
+
+# target to preprocess a source file
+symtab.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/symtab.cpp.i
+.PHONY : symtab.cpp.i
+
+symtab.s: symtab.cpp.s
+
+.PHONY : symtab.s
+
+# target to generate assembly for a file
+symtab.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/symtab.cpp.s
+.PHONY : symtab.cpp.s
+
+test.o: test.cpp.o
+
+.PHONY : test.o
+
+# target to build an object file
+test.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test.cpp.o
+.PHONY : test.cpp.o
+
+test.i: test.cpp.i
+
+.PHONY : test.i
+
+# target to preprocess a source file
+test.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test.cpp.i
+.PHONY : test.cpp.i
+
+test.s: test.cpp.s
+
+.PHONY : test.s
+
+# target to generate assembly for a file
+test.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/test.cpp.s
+.PHONY : test.cpp.s
 
 util.o: util.cpp.o
 
@@ -216,9 +297,18 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... parse.o"
+	@echo "... parse.i"
+	@echo "... parse.s"
 	@echo "... scan.o"
 	@echo "... scan.i"
 	@echo "... scan.s"
+	@echo "... symtab.o"
+	@echo "... symtab.i"
+	@echo "... symtab.s"
+	@echo "... test.o"
+	@echo "... test.i"
+	@echo "... test.s"
 	@echo "... util.o"
 	@echo "... util.i"
 	@echo "... util.s"
