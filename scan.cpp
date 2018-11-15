@@ -205,6 +205,7 @@ TokenType getToken(){
                 }
                 break;
             case DONE:
+                break;
             default:
                 // never here
                 std::cout<<"bug default at line 200" << std::endl;

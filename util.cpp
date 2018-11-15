@@ -100,22 +100,20 @@ TreeNode* newNode(NodeType nodetype){
 namespace{
     int indent;
 }
-#define INDENT indent+=2
-#define UNINDENT indent-=2
+#define INDENT indent+=4
+#define UNINDENT indent-=4
 
 void printSpace(){
     for(int i = 0; i < indent; i++){
         treefile<<" ";
     }
 }
-
 void pt(std::string s){
     treefile<<s<<std::endl;
 }
-
 void printTree(TreeNode *t){
     INDENT;
-    while(t != nullptr){
+    if(t != nullptr){
         printSpace();
         switch(t->nodetype){
             case STMT_SEQUENCE:
@@ -179,7 +177,7 @@ void printTree(TreeNode *t){
                 pt("not");
                 break;
             case FACTOR:
-                pt(std::string("factor:   val =  ") + t->tk->tokenString);
+                pt(std::string("factor:val=") + t->tk->tokenString);
                 break;
             case LPAREN_EXP:
                 pt("(");
@@ -188,7 +186,7 @@ void printTree(TreeNode *t){
                 pt(")");
                 break;
             default:
-                pt("---unknown NodeType");
+                pt("---unknown NodeType  " + t->tk->tokenString);
                 break;
         }
         for(int i = 0; i < MAXCHILDREN; i++){

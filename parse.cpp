@@ -73,6 +73,7 @@ namespace{
             }while(token == TK_COMMA);
             match(TK_SEMI);
         }
+        std::cout<<"log:  "<< std::endl;
         //打印符号表
         printSymTable(symtablefile);
     }
@@ -109,6 +110,8 @@ namespace{
             if(t != nullptr){
                 t->child[1] = stmt_sequence();
             }
+       }else{
+           t = t->child[0];
        }
        return t;
    }
@@ -135,9 +138,10 @@ namespace{
                 t = assign_stmt();
                 break;
             case EOF:
+                break;
 
             default:
-                std::cout<<"Error at line " << lineno << ", unknown tokens:) \n"<< tokenString << std::endl;;
+                std::cout<<"Error at line " << lineno << ", unknown tokens:) "<< tokenString << std::endl;;
                 printToken(token, tokenString);
         }
         return t;
@@ -230,6 +234,8 @@ namespace{
             if(t != nullptr){
                 t->child[1] = or_exp();
             }
+        }else{
+            t = t->child[0];
         }
         return t;
     }
@@ -244,6 +250,8 @@ namespace{
             if(t != nullptr){
                 t->child[1] = and_exp();
             }
+        }else{
+            t = t->child[0];
         }
         return t;
     }
@@ -280,6 +288,7 @@ namespace{
                 t->child[1] = comparison_exp();
                 break;
             default:
+                t = t->child[0];
                 break;
         }
         return t;
@@ -302,6 +311,7 @@ namespace{
                 t->child[1] = add_exp();
                 break;
             default:
+                t = t->child[0];
                 break;
         }
         return t;
@@ -324,6 +334,7 @@ namespace{
                 t->child[1] = mul_exp();
                 break;
             default:
+                t = t->child[0];
                 break;
         }
         return t;
@@ -333,43 +344,51 @@ namespace{
         TreeNode *t = newNode(FACTOR);
         switch(token){
             case TK_ID:
-                match(TK_ID);
                 t->tk = new Token();
                 t->tk->tokenType = TK_ID;
                 t->tk->tokenString = tokenString;
+                match(TK_ID);
                 break;
+            case TK_NUM:
+                t->tk = new Token();
+                t->tk->tokenType = TK_NUM;
+                t->tk->tokenString = tokenString;
+                match(TK_NUM);
+                break;
+
             case TK_STR:
-                match(TK_STR);
                 t->tk = new Token();
                 t->tk->tokenType = TK_STR;
                 t->tk->tokenString = tokenString;
+                match(TK_STR);
                 break;
             case TK_TRUE:
-                match(TK_TRUE);
                 t->tk = new Token();
                 t->tk->tokenType = TK_TRUE;
                 t->tk->tokenString = tokenString;
+                match(TK_TRUE);
                 break;
             case TK_FALSE:
-                match(TK_FALSE);
                 t->tk = new Token();
                 t->tk->tokenType = TK_FALSE;
                 t->tk->tokenString = tokenString;
+                match(TK_FALSE);
                 break;
             case TK_LPAREN:
-                match(TK_LPAREN);
-                t->child[0] = newNode(LPAREN_EXP);
+                t->nodetype = LPAREN_EXP;
+                t->child[0] = newNode(FACTOR);
                 t->child[0]->tk = new Token();
                 t->child[0]->tk->tokenString = tokenString;
                 t->child[0]->tk->tokenType = TK_LPAREN;
+                match(TK_LPAREN);
                 
                 t->child[1] = or_exp();
 
-                match(TK_RPAREN);
-                t->child[2] = newNode(RPAREN_EXP);
+                t->child[2] = newNode(FACTOR);
                 t->child[2]->tk = new Token();
                 t->child[2]->tk->tokenString = tokenString;
                 t->child[2]->tk->tokenType = TK_RPAREN;
+                match(TK_RPAREN);
                 break;
         }
         return t;
