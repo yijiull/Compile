@@ -1,11 +1,12 @@
 #include "global.h"
-
+#include "util.h"
 int lineno = 0;
 
 std::fstream source;
 std::fstream tokenfile;
 std::fstream symtablefile;
 std::fstream codefile;
+std::fstream treefile;
 
 char *c;
 
@@ -43,6 +44,7 @@ int main(int argc, char* argv[]){
     std::string file = std::string(argv[1]);
     std::string out = file + ".back";
     std::string sym = file + ".symbal";
+    std::string tree = file + ".tree";
     source.open(file, std::ios::in);
 #if NO_PARSE
     tokenfile.open(out, std::ios::out);
@@ -52,7 +54,9 @@ int main(int argc, char* argv[]){
     }
 #else
     symtablefile.open(sym, std::ios::out);
-    parse();
+    TreeNode *t = parse();
+    treefile.open(tree, std::ios::out);
+    printTree(t);
 
 #endif
 }

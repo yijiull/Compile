@@ -23,6 +23,15 @@ namespace{
 
     TreeNode* or_exp();
     TreeNode* and_exp();
+    TreeNode* comparison_exp();
+    TreeNode* add_exp();
+    TreeNode* mul_exp();
+    TreeNode* lessthan_exp();
+    TreeNode* greaterthan_exp();
+    TreeNode* lessequal_exp();
+    TreeNode* greaterequal_exp();
+    TreeNode* equal_exp();
+    TreeNode* factor();
 
     void syntaxError(std::string m){
         tokenfile << "\n>>> ";
@@ -69,10 +78,40 @@ namespace{
     }
 
 
+    /*tiny用链表写的，节约了内存，不过不太好理解,下面先用树实现，后面看情况再用链表
     TreeNode* stmt_sequence(){
         TreeNode *t = statement();
+        TreeNode *p = t;
+        while(token != TK_ENDFILE && token != TK_END && token != TK_ELSE && token != TK_UNTIL){
+            TreeNode *q;
+            match(TK_SEMI);
+            q = statement();
+            if(q != nullptr){
+                if(t == nullptr){
+                    t = p = q;
+                }else{
+                    p->silbing = q;
+                    p = q;
+                }
+            }
+        }
         return t;
     }
+    */
+
+    TreeNode* stmt_sequence(){
+        TreeNode *t = newNode(STMT_SEQUENCE);
+        if(t != nullptr){
+            t->child[0] = statement();
+        }
+        if(token == TK_SEMI){
+            match(TK_SEMI);
+            if(t != nullptr){
+                t->child[1] = stmt_sequence();
+            }
+       }
+       return t;
+   }
 
     TreeNode* statement(){
         TreeNode *t = nullptr;
@@ -92,11 +131,14 @@ namespace{
             case TK_WHILE:
                 t = while_stmt();
                 break;
-            case TK_ASSIGN:
+            case TK_ID:
                 t = assign_stmt();
                 break;
+            case EOF:
+
             default:
-                std::cout<<"Error at line " << lineno << ", unknown tokens:)\n";
+                std::cout<<"Error at line " << lineno << ", unknown tokens:) \n"<< tokenString << std::endl;;
+                printToken(token, tokenString);
         }
         return t;
     }
@@ -130,6 +172,205 @@ namespace{
         match(TK_UNTIL);
         if(t !=  nullptr){
             t->child[1] = or_exp();
+        }
+        return t;
+    }
+
+    TreeNode* assign_stmt(){
+        TreeNode *t = newNode(ASSIGN_STMT);
+        if(t != nullptr && token == TK_ID){
+            t->child[0] = factor();
+            //t->child[0]->tk->tokenType = TK_ID;
+            //t->child[0]->tk->tokenString = tokenString;
+        }
+        match(TK_ASSIGN);
+        if(t != nullptr){
+            t->child[1] = or_exp();
+        }
+        return t;
+    }
+
+    TreeNode* read_stmt(){
+        TreeNode *t = newNode(READ_STMT);
+        match(TK_READ);
+        if(t != nullptr && token == TK_ID){
+            t->child[0] = factor();
+        }
+        return t;
+    }
+    TreeNode* write_stmt(){
+        TreeNode *t = newNode(WRITE_STMT);
+        match(TK_WRITE);
+        if(t != nullptr){
+            t->child[0] = or_exp();
+        }
+        return t;
+    }
+    TreeNode* while_stmt(){
+        TreeNode *t = newNode(WHILE_STMT);
+        match(TK_WHILE);
+        if(t != nullptr){
+            t->child[0] = or_exp();
+        }
+        match(TK_DO);
+        if(t != nullptr){
+            t->child[1] = stmt_sequence();
+        }
+        match(TK_END);
+        return t;
+    }
+
+    TreeNode* or_exp(){
+        TreeNode *t = newNode(OR_EXP);
+        if(t != nullptr){
+            t->child[0] = and_exp();
+        }
+        if(token == TK_OR){
+            match(TK_OR);
+            if(t != nullptr){
+                t->child[1] = or_exp();
+            }
+        }
+        return t;
+    }
+
+    TreeNode* and_exp(){
+        TreeNode *t = newNode(AND_EXP);
+        if(t != nullptr){
+            t->child[0] = comparison_exp();
+        }
+        if(token == TK_AND){
+            match(TK_AND);
+            if(t != nullptr){
+                t->child[1] = and_exp();
+            }
+        }
+        return t;
+    }
+
+    TreeNode* comparison_exp(){
+        TreeNode *t = newNode(Void);
+        if(t != nullptr){
+            t->child[0] = add_exp();
+        }
+        switch(token){
+            case TK_LT:
+                match(TK_LT);
+                t->nodetype = LT_EXP;
+                t->child[1] = comparison_exp();
+                break;
+            case TK_LE:
+                match(TK_LE);
+                t->nodetype = LE_EXP;
+                t->child[1] = comparison_exp();
+                break;
+            case TK_GT:
+                match(TK_GT);
+                t->nodetype = GT_EXP;
+                t->child[1] = comparison_exp();
+                break;
+            case TK_GE:
+                match(TK_GE);
+                t->nodetype = GE_EXP;
+                t->child[1] = comparison_exp();
+                break;
+            case TK_EQ:
+                match(TK_EQ);
+                t->nodetype = EQ_EXP;
+                t->child[1] = comparison_exp();
+                break;
+            default:
+                break;
+        }
+        return t;
+    }
+
+    TreeNode* add_exp(){
+        TreeNode *t = newNode(Void);
+        if(t != nullptr){
+            t->child[0] = mul_exp();
+        }
+        switch(token){
+            case TK_PLUS:
+                match(TK_PLUS);
+                t->nodetype = PLUS_EXP;
+                t->child[1] = add_exp();
+                break;
+            case TK_SUB:
+                match(TK_SUB);
+                t->nodetype = SUB_EXP;
+                t->child[1] = add_exp();
+                break;
+            default:
+                break;
+        }
+        return t;
+    }
+
+    TreeNode* mul_exp(){
+        TreeNode *t = newNode(Void);
+        if(t != nullptr){
+            t->child[0] = factor();
+        }
+        switch(token){
+            case TK_MUL:
+                match(TK_MUL);
+                t->nodetype = MUL_EXP;
+                t->child[1] = mul_exp();
+                break;
+            case TK_DIV:
+                match(TK_DIV);
+                t->nodetype = DIV_EXP;
+                t->child[1] = mul_exp();
+                break;
+            default:
+                break;
+        }
+        return t;
+    }
+
+    TreeNode* factor(){
+        TreeNode *t = newNode(FACTOR);
+        switch(token){
+            case TK_ID:
+                match(TK_ID);
+                t->tk = new Token();
+                t->tk->tokenType = TK_ID;
+                t->tk->tokenString = tokenString;
+                break;
+            case TK_STR:
+                match(TK_STR);
+                t->tk = new Token();
+                t->tk->tokenType = TK_STR;
+                t->tk->tokenString = tokenString;
+                break;
+            case TK_TRUE:
+                match(TK_TRUE);
+                t->tk = new Token();
+                t->tk->tokenType = TK_TRUE;
+                t->tk->tokenString = tokenString;
+                break;
+            case TK_FALSE:
+                match(TK_FALSE);
+                t->tk = new Token();
+                t->tk->tokenType = TK_FALSE;
+                t->tk->tokenString = tokenString;
+                break;
+            case TK_LPAREN:
+                match(TK_LPAREN);
+                t->child[0] = newNode(LPAREN_EXP);
+                t->child[0]->tk = new Token();
+                t->child[0]->tk->tokenString = tokenString;
+                t->child[0]->tk->tokenType = TK_LPAREN;
+                
+                t->child[1] = or_exp();
+
+                match(TK_RPAREN);
+                t->child[2] = newNode(RPAREN_EXP);
+                t->child[2]->tk = new Token();
+                t->child[2]->tk->tokenString = tokenString;
+                t->child[2]->tk->tokenType = TK_RPAREN;
+                break;
         }
         return t;
     }

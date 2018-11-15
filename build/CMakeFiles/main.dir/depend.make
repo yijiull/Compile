@@ -5,6 +5,7 @@ CMakeFiles/main.dir/main.cpp.o: ../global.h
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
 CMakeFiles/main.dir/main.cpp.o: ../parse.h
 CMakeFiles/main.dir/main.cpp.o: ../scan.h
+CMakeFiles/main.dir/main.cpp.o: ../util.h
 
 CMakeFiles/main.dir/parse.cpp.o: ../global.h
 CMakeFiles/main.dir/parse.cpp.o: ../parse.cpp

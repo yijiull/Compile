@@ -53,13 +53,13 @@ void printToken(TokenType token, std::string tokenString){
         case TK_PLUS:
             tokenfile << "+\n";
             break;
-        case TK_MINUS:
+        case TK_SUB:
             tokenfile << "-\n";
             break;
-        case TK_TIMES:
+        case TK_MUL:
             tokenfile << "*\n";
             break;
-        case TK_OVER:
+        case TK_DIV:
             tokenfile << "/\n";
             break;
         case TK_COMMA:
@@ -92,7 +92,108 @@ TreeNode* newNode(NodeType nodetype){
     for(int i = 0; i < MAXCHILDREN; i++){
         t->child[i] = nullptr;
     }
-    t->silbing = nullptr;
+    //t->silbing = nullptr;
     t->nodetype = nodetype;
     return t;
+}
+
+namespace{
+    int indent;
+}
+#define INDENT indent+=2
+#define UNINDENT indent-=2
+
+void printSpace(){
+    for(int i = 0; i < indent; i++){
+        treefile<<" ";
+    }
+}
+
+void pt(std::string s){
+    treefile<<s<<std::endl;
+}
+
+void printTree(TreeNode *t){
+    INDENT;
+    while(t != nullptr){
+        printSpace();
+        switch(t->nodetype){
+            case STMT_SEQUENCE:
+                pt("stmt_sequence");
+                break;
+            case PROGRAM:
+                pt("program");
+                break;
+            case IF_STMT:
+                pt("if");
+                break;
+            case REPEAT_STMT:
+                pt("repeat");
+                break;
+            case ASSIGN_STMT:
+                pt("assign");
+                break;
+            case READ_STMT:
+                pt("read");
+                break;
+            case WRITE_STMT:
+                pt("write");
+                break;
+            case WHILE_STMT:
+                pt("while");
+                break;
+            case GE_EXP:
+                pt(">=");
+                break;
+            case GT_EXP:
+                pt(">");
+                break;
+            case LT_EXP:
+                pt("<");
+                break;
+            case LE_EXP:
+                pt("<=");
+                break;
+            case EQ_EXP:
+                pt("=");
+                break;
+            case SUB_EXP:
+                pt("sub");
+                break;
+            case PLUS_EXP:
+                pt("plus");
+                break;
+            case MUL_EXP:
+                pt("mul");
+                break;
+            case DIV_EXP:
+                pt("div");
+                break;
+            case OR_EXP:
+                pt("or");
+                break;
+            case AND_EXP:
+                pt("and");
+                break;
+            case NOT_EXP:
+                pt("not");
+                break;
+            case FACTOR:
+                pt(std::string("factor:   val =  ") + t->tk->tokenString);
+                break;
+            case LPAREN_EXP:
+                pt("(");
+                break;
+            case RPAREN_EXP:
+                pt(")");
+                break;
+            default:
+                pt("---unknown NodeType");
+                break;
+        }
+        for(int i = 0; i < MAXCHILDREN; i++){
+            printTree(t->child[i]);
+        }
+    }
+    UNINDENT;
 }

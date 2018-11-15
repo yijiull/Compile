@@ -113,13 +113,13 @@ TokenType getToken(){
                             curTK = TK_PLUS;
                             break;
                         case '-':
-                            curTK = TK_MINUS;
+                            curTK = TK_SUB;
                             break;
                         case '*':
-                            curTK = TK_TIMES;
+                            curTK = TK_MUL;
                             break;
                         case '/':
-                            curTK = TK_OVER;
+                            curTK = TK_DIV;
                             break;
                         case '(':
                             curTK = TK_LPAREN;
@@ -219,8 +219,10 @@ TokenType getToken(){
             }
         }
     }
+#if NO_PARSE
 	tokenfile << "\t" << lineno << ": " << std::flush;
     printToken(curTK, tokenString);
+#endif
     insertToken(curTK);
     return curTK;
 }

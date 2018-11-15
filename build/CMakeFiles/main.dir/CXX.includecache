@@ -19,6 +19,8 @@ iostream
 /home/yijiull/code/easy/main.cpp
 global.h
 /home/yijiull/code/easy/global.h
+util.h
+/home/yijiull/code/easy/util.h
 scan.h
 /home/yijiull/code/easy/scan.h
 parse.h
