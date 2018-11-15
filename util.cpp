@@ -68,17 +68,17 @@ void printToken(TokenType token, std::string tokenString){
         case TK_ENDFILE:
             listing << "EOF\n";
             break;
-        case TK_CHARS:  
-            listing << "CHARS, val = " << tokenString << std::endl;
+        case TK_STR:  
+            listing << "TK_STR, val = " << tokenString << std::endl;
             break;
         case TK_NUM:
-            listing << "NUM, val = " << tokenString << std::endl;
+            listing << "TK_NUM, val = " << tokenString << std::endl;
             break;
         case TK_ID:
-            listing << "ID, name = " << tokenString << std::endl;
+            listing << "TK_ID, name = " << tokenString << std::endl;
             break;
         case TK_ERROR:
-            listing << "ERROR, name = " << tokenString << std::endl;
+            listing << "TK_ERROR, name = " << tokenString << std::endl;
             break;
         default:
             listing << "unknown token !! \n";

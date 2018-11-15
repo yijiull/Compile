@@ -37,4 +37,7 @@ int main(int argc, char* argv[]){
     source.open(file, std::ios::in);
     listing.open(out, std::ios::out);
     while(getToken()){};
+    for(auto i : tokens){
+        std::cout<<i->tokenString<<std::endl;
+    }
 }

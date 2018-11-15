@@ -13,6 +13,7 @@ enum StateType{
 };
 
 std::string tokenString;
+std::vector<Token*> tokens;
 
 const int BUFLEN = 256;
 
@@ -60,6 +61,12 @@ namespace{
             return reversedWords[s];
         }
         return TK_ID;
+    }
+    void insertToken(TokenType tokentype){
+        Token *token = new Token();
+        token->tokenType = TK_ID;
+        token->tokenString = tokenString;        
+        tokens.push_back(token);
     }
 
 };
@@ -189,7 +196,7 @@ TokenType getToken(){
                 break;
             case INQUOTE:
                 if(c == '\''){
-                    curTK = TK_CHARS;
+                    curTK = TK_STR;
                     state = DONE;
                 }else if(c == '\n'){
                     curTK = TK_ERROR;
@@ -214,6 +221,7 @@ TokenType getToken(){
     }
 	listing << "\t" << lineno << ": " << std::flush;
     printToken(curTK, tokenString);
+    insertToken(curTK);
     return curTK;
 }
 //int main(){
