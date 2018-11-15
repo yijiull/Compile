@@ -1,43 +1,43 @@
 1: {this is an example}
 2: int A,B;
 	2: reserved words: int
-	2: ID, name = A
+	2: TK_ID, name = A
 	2: ,
-	2: ID, name = B
+	2: TK_ID, name = B
 	2: ;
 3: bool C;
 	3: reserved words: bool
-	3: ID, name = C
+	3: TK_ID, name = C
 	3: ;
 4: string D;
 	4: reserved words: string
-	4: ID, name = D
+	4: TK_ID, name = D
 	4: ;
 5: D:= 'scanner';
-	5: ID, name = D
+	5: TK_ID, name = D
 	5: :=
-	5: CHARS, val = 'scanner'
+	5: TK_STR, val = 'scanner'
 	5: ;
 6: C:=A and not B;
-	6: ID, name = C
+	6: TK_ID, name = C
 	6: :=
-	6: ID, name = A
+	6: TK_ID, name = A
 	6: reserved words: and
 	6: reserved words: not
-	6: ID, name = B
+	6: TK_ID, name = B
 	6: ;
 7: while A<=D do 
 	7: reserved words: while
-	7: ID, name = A
+	7: TK_ID, name = A
 	7: <=
-	7: ID, name = D
+	7: TK_ID, name = D
 	7: reserved words: do
 8: 	A:=A*2
-	8: ID, name = A
+	8: TK_ID, name = A
 	8: :=
-	8: ID, name = A
+	8: TK_ID, name = A
 	8: *
-	8: NUM, val = 2
+	8: TK_NUM, val = 2
 9: end
 	9: reserved words: end
 	9: EOF

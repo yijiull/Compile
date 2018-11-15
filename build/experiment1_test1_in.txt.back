@@ -37,35 +37,35 @@
 7: <=	>=	a2c	123	'EFG'
 	7: <=
 	7: >=
-	7: ID, name = a2c
-	7: NUM, val = 123
-	7: CHARS, val = 'EFG'
+	7: TK_ID, name = a2c
+	7: TK_NUM, val = 123
+	7: TK_STR, val = 'EFG'
 8: 
 9: {The following symbols are incorrect}
 10: $ &
-	10: ERROR, name = $
-	10: ERROR, name = &
+	10: TK_ERROR, name = $
+	10: TK_ERROR, name = &
 11: 123man
-	11: NUM, val = 123
-	11: ID, name = man
+	11: TK_NUM, val = 123
+	11: TK_ID, name = man
 12: miss left single quotation mark'
-	12: ID, name = miss
-	12: ID, name = left
-	12: ID, name = single
-	12: ID, name = quotation
-	12: ID, name = mark
+	12: TK_ID, name = miss
+	12: TK_ID, name = left
+	12: TK_ID, name = single
+	12: TK_ID, name = quotation
+	12: TK_ID, name = mark
 13: 'miss right single quotation mark
-	13: CHARS, val = ''
-	13: ID, name = miss
-	13: ID, name = right
-	13: ID, name = single
-	13: ID, name = quotation
-	13: ID, name = mark
+	13: TK_STR, val = ''
+	13: TK_ID, name = miss
+	13: TK_ID, name = right
+	13: TK_ID, name = single
+	13: TK_ID, name = quotation
+	13: TK_ID, name = mark
 14: miss left curly bracket}
-	14: ID, name = miss
-	14: ID, name = left
-	14: ID, name = curly
-	14: ID, name = bracket
-	14: ERROR, name = }
+	14: TK_ID, name = miss
+	14: TK_ID, name = left
+	14: TK_ID, name = curly
+	14: TK_ID, name = bracket
+	14: TK_ERROR, name = }
 15: {miss right curly bracket
 	15: EOF

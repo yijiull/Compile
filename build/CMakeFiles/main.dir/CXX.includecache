@@ -9,6 +9,8 @@
 /home/yijiull/code/easy/global.h
 fstream
 -
+vector
+-
 string
 -
 iostream
