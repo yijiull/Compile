@@ -7,6 +7,7 @@ std::fstream tokenfile;
 std::fstream symtablefile;
 std::fstream codefile;
 std::fstream treefile;
+std::fstream checkfile;
 
 char *c;
 
@@ -19,6 +20,8 @@ bool Error;
 #else
     #include "parse.h"
 #endif
+
+#include "analyze.h"
 
 // read size char from file
 /*
@@ -45,6 +48,7 @@ int main(int argc, char* argv[]){
     std::string out = file + ".back";
     std::string sym = file + ".symbal";
     std::string tree = file + ".tree";
+    std::string checklog = file + ".checklog";
     source.open(file, std::ios::in);
 #if NO_PARSE
     tokenfile.open(out, std::ios::out);
@@ -56,7 +60,9 @@ int main(int argc, char* argv[]){
     symtablefile.open(sym, std::ios::out);
     TreeNode *t = parse();
     treefile.open(tree, std::ios::out);
+    checkfile.open(checklog, std::ios::out);
     printTree(t);
+    buildSymTable(t);
 
 #endif
 }

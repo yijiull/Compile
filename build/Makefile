@@ -123,6 +123,33 @@ main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+analyze.o: analyze.cpp.o
+
+.PHONY : analyze.o
+
+# target to build an object file
+analyze.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/analyze.cpp.o
+.PHONY : analyze.cpp.o
+
+analyze.i: analyze.cpp.i
+
+.PHONY : analyze.i
+
+# target to preprocess a source file
+analyze.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/analyze.cpp.i
+.PHONY : analyze.cpp.i
+
+analyze.s: analyze.cpp.s
+
+.PHONY : analyze.s
+
+# target to generate assembly for a file
+analyze.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/analyze.cpp.s
+.PHONY : analyze.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -294,6 +321,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... main"
 	@echo "... edit_cache"
+	@echo "... analyze.o"
+	@echo "... analyze.i"
+	@echo "... analyze.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

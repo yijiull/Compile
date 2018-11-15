@@ -29,6 +29,7 @@ enum ValType{
 const int MAXRESERVED = 18;
 const int MAXCHILDREN = 3;
 
+
 extern bool Error;
 extern int lineno;
 extern std::fstream source;
@@ -36,11 +37,15 @@ extern std::fstream tokenfile;
 extern std::fstream symtablefile;
 extern std::fstream codefile;
 extern std::fstream treefile;
+extern std::fstream checkfile;
+
+extern int location;
 
 struct Token{
     Token(){};
     TokenType tokenType;
     std::string tokenString;
+    int lineno;
 };
 
 struct TreeNode{

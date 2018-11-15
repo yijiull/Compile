@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+/home/yijiull/code/easy/analyze.cpp
+global.h
+/home/yijiull/code/easy/global.h
+symtab.h
+/home/yijiull/code/easy/symtab.h
+analyze.h
+/home/yijiull/code/easy/analyze.h
+
+/home/yijiull/code/easy/analyze.h
+
 /home/yijiull/code/easy/global.h
 fstream
 -
@@ -25,6 +35,8 @@ scan.h
 /home/yijiull/code/easy/scan.h
 parse.h
 /home/yijiull/code/easy/parse.h
+analyze.h
+/home/yijiull/code/easy/analyze.h
 
 /home/yijiull/code/easy/parse.cpp
 global.h

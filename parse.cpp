@@ -4,10 +4,11 @@
 #include "parse.h"
 #include "symtab.h"
 
+int location = 0;
+
 namespace{
     TokenType token;
 
-    int location = 0;
 
     TreeNode* parse();
     void declarations();
@@ -73,9 +74,8 @@ namespace{
             }while(token == TK_COMMA);
             match(TK_SEMI);
         }
-        std::cout<<"log:  "<< std::endl;
         //打印符号表
-        printSymTable(symtablefile);
+        //printSymTable(symtablefile);
     }
 
 
@@ -137,9 +137,6 @@ namespace{
             case TK_ID:
                 t = assign_stmt();
                 break;
-            case EOF:
-                break;
-
             default:
                 std::cout<<"Error at line " << lineno << ", unknown tokens:) "<< tokenString << std::endl;;
                 printToken(token, tokenString);
@@ -347,6 +344,7 @@ namespace{
                 t->tk = new Token();
                 t->tk->tokenType = TK_ID;
                 t->tk->tokenString = tokenString;
+                t->tk->lineno = lineno;
                 match(TK_ID);
                 break;
             case TK_NUM:
@@ -355,7 +353,6 @@ namespace{
                 t->tk->tokenString = tokenString;
                 match(TK_NUM);
                 break;
-
             case TK_STR:
                 t->tk = new Token();
                 t->tk->tokenType = TK_STR;
@@ -375,19 +372,9 @@ namespace{
                 match(TK_FALSE);
                 break;
             case TK_LPAREN:
-                t->nodetype = LPAREN_EXP;
-                t->child[0] = newNode(FACTOR);
-                t->child[0]->tk = new Token();
-                t->child[0]->tk->tokenString = tokenString;
-                t->child[0]->tk->tokenType = TK_LPAREN;
+                t->nodetype = OR_EXP;
                 match(TK_LPAREN);
-                
-                t->child[1] = or_exp();
-
-                t->child[2] = newNode(FACTOR);
-                t->child[2]->tk = new Token();
-                t->child[2]->tk->tokenString = tokenString;
-                t->child[2]->tk->tokenType = TK_RPAREN;
+                t = or_exp();
                 match(TK_RPAREN);
                 break;
         }

@@ -24,15 +24,9 @@
                         factor:val=A
                         factor:val=2
                 <=
-                    (
-                        factor:val=(
-                        plus
-                            factor:val=A
-                            factor:val=C
-                        factor:val=)
-                    (
-                        factor:val=(
-                        plus
-                            factor:val=B
-                            factor:val=D
-                        factor:val=)
+                    plus
+                        factor:val=A
+                        factor:val=C
+                    plus
+                        factor:val=B
+                        factor:val=D
