@@ -65,15 +65,15 @@ namespace{
             switch(temp){
                 case TK_INT:
                     type = VT_INT;
-                    std::cout<<"int: ";
+                    //std::cout<<"int: ";
                     break;
                 case TK_BOOL:
                     type = VT_BOOL;
-                    std::cout<<"bool: ";
+                    //std::cout<<"bool: ";
                     break;
                 case TK_STRING:
                     type = VT_STRING;
-                    std::cout<<"string: ";
+                    //std::cout<<"string: ";
                     break;
                 default:
                     break;
@@ -82,7 +82,7 @@ namespace{
                 std::string name = tokenString;
                 match(TK_ID);
                 //插入符号表
-                std::cout << name << ", ";
+                //std::cout << name << ", ";
                 if(st_lookup(name) == -1){
                     st_insert(name, type, lineno, location++);
                 }else{
@@ -91,7 +91,7 @@ namespace{
                     //st_insert(name, type, lineno, 0);  //不用插入符号表了，不管它
                 }
             }while(match(TK_COMMA));
-            std::cout << "\n";
+            //std::cout << "\n";
             match(TK_SEMI);
             temp = token;
         }
@@ -159,7 +159,7 @@ namespace{
                 t = assign_stmt();
                 break;
             default:
-                std::cout<<"Error at line " << lineno << ", unknown tokens:) "<< tokenString << std::endl;;
+                logfile << "Error at line " << lineno << ", unknown tokens:) "<< tokenString << std::endl;;
                 //printToken(token, tokenString);
         }
         return t;

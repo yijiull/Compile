@@ -6,17 +6,29 @@
 
 #IncludeRegexTransform: 
 
-/home/yijiull/code/easy/analyze.cpp
+/home/yijiull/code/Compile/analyze.cpp
 global.h
-/home/yijiull/code/easy/global.h
+/home/yijiull/code/Compile/global.h
 symtab.h
-/home/yijiull/code/easy/symtab.h
+/home/yijiull/code/Compile/symtab.h
 analyze.h
-/home/yijiull/code/easy/analyze.h
+/home/yijiull/code/Compile/analyze.h
 
-/home/yijiull/code/easy/analyze.h
+/home/yijiull/code/Compile/analyze.h
 
-/home/yijiull/code/easy/global.h
+/home/yijiull/code/Compile/cgen.cpp
+global.h
+/home/yijiull/code/Compile/global.h
+cgen.h
+/home/yijiull/code/Compile/cgen.h
+symtab.h
+/home/yijiull/code/Compile/symtab.h
+util.h
+/home/yijiull/code/Compile/util.h
+
+/home/yijiull/code/Compile/cgen.h
+
+/home/yijiull/code/Compile/global.h
 fstream
 -
 vector
@@ -26,33 +38,35 @@ string
 iostream
 -
 
-/home/yijiull/code/easy/main.cpp
+/home/yijiull/code/Compile/main.cpp
 global.h
-/home/yijiull/code/easy/global.h
+/home/yijiull/code/Compile/global.h
 util.h
-/home/yijiull/code/easy/util.h
+/home/yijiull/code/Compile/util.h
 scan.h
-/home/yijiull/code/easy/scan.h
+/home/yijiull/code/Compile/scan.h
 parse.h
-/home/yijiull/code/easy/parse.h
+/home/yijiull/code/Compile/parse.h
 analyze.h
-/home/yijiull/code/easy/analyze.h
+/home/yijiull/code/Compile/analyze.h
+cgen.h
+/home/yijiull/code/Compile/cgen.h
 
-/home/yijiull/code/easy/parse.cpp
+/home/yijiull/code/Compile/parse.cpp
 global.h
-/home/yijiull/code/easy/global.h
+/home/yijiull/code/Compile/global.h
 util.h
-/home/yijiull/code/easy/util.h
+/home/yijiull/code/Compile/util.h
 scan.h
-/home/yijiull/code/easy/scan.h
+/home/yijiull/code/Compile/scan.h
 parse.h
-/home/yijiull/code/easy/parse.h
+/home/yijiull/code/Compile/parse.h
 symtab.h
-/home/yijiull/code/easy/symtab.h
+/home/yijiull/code/Compile/symtab.h
 
-/home/yijiull/code/easy/parse.h
+/home/yijiull/code/Compile/parse.h
 
-/home/yijiull/code/easy/scan.cpp
+/home/yijiull/code/Compile/scan.cpp
 string
 -
 cstring
@@ -64,39 +78,39 @@ map
 unordered_map
 -
 global.h
-/home/yijiull/code/easy/global.h
+/home/yijiull/code/Compile/global.h
 scan.h
-/home/yijiull/code/easy/scan.h
+/home/yijiull/code/Compile/scan.h
 util.h
-/home/yijiull/code/easy/util.h
+/home/yijiull/code/Compile/util.h
 
-/home/yijiull/code/easy/scan.h
+/home/yijiull/code/Compile/scan.h
 
-/home/yijiull/code/easy/symtab.cpp
+/home/yijiull/code/Compile/symtab.cpp
 string
 -
 fstream
 -
 global.h
-/home/yijiull/code/easy/global.h
+/home/yijiull/code/Compile/global.h
 symtab.h
-/home/yijiull/code/easy/symtab.h
+/home/yijiull/code/Compile/symtab.h
 unordered_map
 -
 vector
 -
 
-/home/yijiull/code/easy/symtab.h
+/home/yijiull/code/Compile/symtab.h
 
-/home/yijiull/code/easy/test.cpp
+/home/yijiull/code/Compile/test.cpp
 bits/stdc++.h
 -
 
-/home/yijiull/code/easy/util.cpp
+/home/yijiull/code/Compile/util.cpp
 global.h
-/home/yijiull/code/easy/global.h
+/home/yijiull/code/Compile/global.h
 util.h
-/home/yijiull/code/easy/util.h
+/home/yijiull/code/Compile/util.h
 
-/home/yijiull/code/easy/util.h
+/home/yijiull/code/Compile/util.h
 

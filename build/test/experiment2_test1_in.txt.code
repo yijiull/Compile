@@ -1,0 +1,18 @@
+0) start
+1) if A < C goto 3
+2) goto 17
+3) if B > D goto 5
+4) goto 17
+5) if A = 1 goto 7
+6) goto 11
+7) _t0 := B * C
+8) _t1 := _t0 + 37
+9) A := _t1
+10) goto 17
+11) _t2 := A * 2
+12) A := _t2
+13) _t3 := A + C
+14) _t4 := B + D
+15) if _t3 <= _t4 goto 11
+16) goto 17
+17) end

@@ -22,6 +22,7 @@ bool Error;
 #endif
 
 #include "analyze.h"
+#include "cgen.h"
 
 // read size char from file
 /*
@@ -49,6 +50,7 @@ int main(int argc, char* argv[]){
     std::string sym = file + ".symbal";
     std::string tree = file + ".tree";
     std::string log = file + ".log";
+    std::string code = file + ".code";
     source.open(file, std::ios::in);
 #if NO_PARSE
     tokenfile.open(out, std::ios::out);
@@ -60,10 +62,17 @@ int main(int argc, char* argv[]){
     symtablefile.open(sym, std::ios::out);
     treefile.open(tree, std::ios::out);
     logfile.open(log, std::ios::out);
+    codefile.open(code, std::ios::out);
     TreeNode *t = parse();
     printTree(t);
     buildSymTable(t);
     typeCheck(t);
+    codeGeneral(t);
+    if(Error){
+        std::cout << std::string("something is wrong, please check the ") + log << std::endl;
+    }else{
+        std::cout << "Success! please check the files:\n\t" + sym + "\n\t" + tree + "\n\t" + code << std::endl;  
+    }
 
 #endif
 }

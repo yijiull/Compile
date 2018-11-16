@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/yijiull/code/easy
+CMAKE_SOURCE_DIR = /home/yijiull/code/Compile
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/yijiull/code/easy/build
+CMAKE_BINARY_DIR = /home/yijiull/code/Compile/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/yijiull/code/easy/build/CMakeFiles /home/yijiull/code/easy/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yijiull/code/Compile/build/CMakeFiles /home/yijiull/code/Compile/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/yijiull/code/easy/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yijiull/code/Compile/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -149,6 +149,33 @@ analyze.s: analyze.cpp.s
 analyze.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/analyze.cpp.s
 .PHONY : analyze.cpp.s
+
+cgen.o: cgen.cpp.o
+
+.PHONY : cgen.o
+
+# target to build an object file
+cgen.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/cgen.cpp.o
+.PHONY : cgen.cpp.o
+
+cgen.i: cgen.cpp.i
+
+.PHONY : cgen.i
+
+# target to preprocess a source file
+cgen.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/cgen.cpp.i
+.PHONY : cgen.cpp.i
+
+cgen.s: cgen.cpp.s
+
+.PHONY : cgen.s
+
+# target to generate assembly for a file
+cgen.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/cgen.cpp.s
+.PHONY : cgen.cpp.s
 
 main.o: main.cpp.o
 
@@ -324,6 +351,9 @@ help:
 	@echo "... analyze.o"
 	@echo "... analyze.i"
 	@echo "... analyze.s"
+	@echo "... cgen.o"
+	@echo "... cgen.i"
+	@echo "... cgen.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

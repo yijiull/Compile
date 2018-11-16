@@ -9,6 +9,13 @@ struct Node{
 #if !TEST
 int main(){
 
+    vector<Node*> v;
+    Node *aa = new Node();
+    aa->v = 3;
+    v.push_back(aa);
+    aa->v = 4;
+    cout<<v[0]->v<<endl;
+
     Node *a = new Node{1, nullptr};
     Node *b = new Node{2, nullptr};
     Node *c = new Node{3, nullptr};

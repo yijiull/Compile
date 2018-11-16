@@ -1,0 +1,1 @@
+void codeGeneral(TreeNode *t);

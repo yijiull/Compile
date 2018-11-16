@@ -41,6 +41,7 @@ extern std::fstream logfile;
 
 extern int location;
 
+
 struct Token{
     Token(){};
     TokenType tokenType;
@@ -54,6 +55,16 @@ struct TreeNode{
     int lineno;
 
     Token *tk;
+    int T, F, B;
 
     ValType valType;
 };
+
+struct Code{
+    std::string stmt;
+    int jump;
+    int pos;
+    Code *nxt;
+};
+
+extern std::vector<Code*> codes; 

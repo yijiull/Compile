@@ -1,8 +1,0 @@
-    stmt_sequence
-        assign
-            factor:val=D
-            factor:val='scanner'
-        assign
-            factor:val=C
-            and
-                factor:val=A

@@ -99,6 +99,14 @@ TreeNode* newNode(NodeType nodetype, int lineno){
     return t;
 }
 
+Code* newCode(){
+    Code *code = new Code();
+    code->nxt = nullptr;
+    code->jump = -1;
+    code->pos = codes.size();
+    return code;
+}
+
 namespace{
     int indent;
     void printSpace(){
