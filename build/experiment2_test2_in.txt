@@ -1,4 +1,5 @@
 int x,fact;
+bool x;
 read x;
 if x>0 and x<100 then {don¡¯t compute if x<=0}
 	fact:=1;

@@ -87,30 +87,32 @@ void printToken(TokenType token, std::string tokenString){
 }
 
 
-TreeNode* newNode(NodeType nodetype){
+TreeNode* newNode(NodeType nodetype, int lineno){
     TreeNode *t = new TreeNode();
     for(int i = 0; i < MAXCHILDREN; i++){
         t->child[i] = nullptr;
     }
     //t->silbing = nullptr;
     t->nodetype = nodetype;
+    t->tk = nullptr;
+    t->lineno = lineno;
     return t;
 }
 
 namespace{
     int indent;
+    void printSpace(){
+        for(int i = 0; i < indent; i++){
+            treefile<<" ";
+        }
+    }
+    void pt(std::string s){
+        treefile<<s<<std::endl;
+    }
 }
 #define INDENT indent+=4
 #define UNINDENT indent-=4
 
-void printSpace(){
-    for(int i = 0; i < indent; i++){
-        treefile<<" ";
-    }
-}
-void pt(std::string s){
-    treefile<<s<<std::endl;
-}
 void printTree(TreeNode *t){
     INDENT;
     if(t != nullptr){
@@ -179,12 +181,12 @@ void printTree(TreeNode *t){
             case FACTOR:
                 pt(std::string("factor:val=") + t->tk->tokenString);
                 break;
-            case LPAREN_EXP:
-                pt("(");
-                break;
-            case RPAREN_EXP:
-                pt(")");
-                break;
+            //case LPAREN_EXP:
+            //    pt("(");
+            //    break;
+            //case RPAREN_EXP:
+            //    pt(")");
+            //    break;
             default:
                 pt("---unknown NodeType  " + t->tk->tokenString);
                 break;

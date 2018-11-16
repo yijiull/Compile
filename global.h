@@ -18,7 +18,7 @@ enum NodeType{
     PLUS_EXP, SUB_EXP, MUL_EXP, DIV_EXP,
     FACTOR,
     Void,
-    LPAREN_EXP, RPAREN_EXP
+    //LPAREN_EXP, RPAREN_EXP
 
 };
 
@@ -37,7 +37,7 @@ extern std::fstream tokenfile;
 extern std::fstream symtablefile;
 extern std::fstream codefile;
 extern std::fstream treefile;
-extern std::fstream checkfile;
+extern std::fstream logfile;
 
 extern int location;
 
@@ -45,13 +45,15 @@ struct Token{
     Token(){};
     TokenType tokenType;
     std::string tokenString;
-    int lineno;
 };
 
 struct TreeNode{
     NodeType nodetype;
     //TreeNode *silbing;
     TreeNode *child[MAXCHILDREN];
+    int lineno;
 
     Token *tk;
+
+    ValType valType;
 };

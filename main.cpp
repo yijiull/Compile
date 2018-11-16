@@ -7,7 +7,7 @@ std::fstream tokenfile;
 std::fstream symtablefile;
 std::fstream codefile;
 std::fstream treefile;
-std::fstream checkfile;
+std::fstream logfile;
 
 char *c;
 
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]){
     std::string out = file + ".back";
     std::string sym = file + ".symbal";
     std::string tree = file + ".tree";
-    std::string checklog = file + ".checklog";
+    std::string log = file + ".log";
     source.open(file, std::ios::in);
 #if NO_PARSE
     tokenfile.open(out, std::ios::out);
@@ -58,11 +58,12 @@ int main(int argc, char* argv[]){
     }
 #else
     symtablefile.open(sym, std::ios::out);
-    TreeNode *t = parse();
     treefile.open(tree, std::ios::out);
-    checkfile.open(checklog, std::ios::out);
+    logfile.open(log, std::ios::out);
+    TreeNode *t = parse();
     printTree(t);
     buildSymTable(t);
+    typeCheck(t);
 
 #endif
 }

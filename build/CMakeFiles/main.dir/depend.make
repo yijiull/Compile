@@ -25,6 +25,7 @@ CMakeFiles/main.dir/scan.cpp.o: ../scan.cpp
 CMakeFiles/main.dir/scan.cpp.o: ../scan.h
 CMakeFiles/main.dir/scan.cpp.o: ../util.h
 
+CMakeFiles/main.dir/symtab.cpp.o: ../global.h
 CMakeFiles/main.dir/symtab.cpp.o: ../symtab.cpp
 CMakeFiles/main.dir/symtab.cpp.o: ../symtab.h
 

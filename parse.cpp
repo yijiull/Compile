@@ -35,44 +35,65 @@ namespace{
     TreeNode* factor();
 
     void syntaxError(std::string m){
-        tokenfile << "\n>>> ";
-        tokenfile << "Syntax error at line " << lineno << ": " << m;
+        logfile << "\n>>> ";
+        logfile << "Syntax error at line " << lineno << ": " << m << std::endl;
         Error = true;
     }
 
-    void match(TokenType expected){
+    bool match(TokenType expected){
         if(token == expected){
             token = getToken();
+            return true;
         }else{
-            syntaxError("unexpexted token ->");
-            printToken(token, tokenString);
-            tokenfile << "       ";
+            //syntaxError("unexpexted token ->");
+            //printToken(token, tokenString);
+            //tokenfile << "       ";
+            return false;
         }
     }
 
     TreeNode* program(){
+        token = getToken();
         declarations();
         return stmt_sequence();
     }
 
     void declarations(){
-        token = getToken();
-        while(token == TK_INT || token == TK_BOOL || token == TK_STRING){
+        ValType type;
+        TokenType temp = token;
+        while(match(TK_INT) || match(TK_BOOL) || match(TK_STRING)){
+            switch(temp){
+                case TK_INT:
+                    type = VT_INT;
+                    std::cout<<"int: ";
+                    break;
+                case TK_BOOL:
+                    type = VT_BOOL;
+                    std::cout<<"bool: ";
+                    break;
+                case TK_STRING:
+                    type = VT_STRING;
+                    std::cout<<"string: ";
+                    break;
+                default:
+                    break;
+            }
             do{
-                token = getToken();
                 std::string name = tokenString;
                 match(TK_ID);
                 //插入符号表
-                std::cout<<name<<std::endl;
+                std::cout << name << ", ";
                 if(st_lookup(name) == -1){
-                    st_insert(name, lineno, location++);
+                    st_insert(name, type, lineno, location++);
                 }else{
-                    symtablefile << "Error at line " << lineno <<";\n";
-                    symtablefile << name << "declared multies times:)\n";
-                    st_insert(name, lineno, 0);
+                    logfile << "Error at line " << lineno << ": ";
+                    logfile << name << " declared multiple times:)" << std::endl;
+                    //st_insert(name, type, lineno, 0);  //不用插入符号表了，不管它
                 }
-            }while(token == TK_COMMA);
+            }while(match(TK_COMMA));
+            std::cout << "\n";
             match(TK_SEMI);
+            temp = token;
         }
         //打印符号表
         //printSymTable(symtablefile);
@@ -101,12 +122,12 @@ namespace{
     */
 
     TreeNode* stmt_sequence(){
-        TreeNode *t = newNode(STMT_SEQUENCE);
+        TreeNode *t = newNode(STMT_SEQUENCE, lineno);
         if(t != nullptr){
             t->child[0] = statement();
         }
-        if(token == TK_SEMI){
-            match(TK_SEMI);
+        if(match(TK_SEMI)){
+            //match(TK_SEMI);
             if(t != nullptr){
                 t->child[1] = stmt_sequence();
             }
@@ -114,7 +135,7 @@ namespace{
            t = t->child[0];
        }
        return t;
-   }
+    }
 
     TreeNode* statement(){
         TreeNode *t = nullptr;
@@ -139,13 +160,13 @@ namespace{
                 break;
             default:
                 std::cout<<"Error at line " << lineno << ", unknown tokens:) "<< tokenString << std::endl;;
-                printToken(token, tokenString);
+                //printToken(token, tokenString);
         }
         return t;
     }
 
     TreeNode* if_stmt(){
-        TreeNode *t = newNode(IF_STMT);
+        TreeNode *t = newNode(IF_STMT, lineno);
         match(TK_IF);
         if(t != nullptr){
             t->child[0] = or_exp();
@@ -154,8 +175,8 @@ namespace{
         if(t != nullptr){
             t->child[1] = stmt_sequence();
         }
-        if(token == TK_ELSE){
-            match(TK_ELSE);
+        if(match(TK_ELSE)){
+            //match(TK_ELSE);
             if(t != nullptr){
                 t->child[2] = stmt_sequence();
             }
@@ -165,7 +186,7 @@ namespace{
     }
 
     TreeNode* repeat_stmt(){
-        TreeNode *t = newNode(REPEAT_STMT);
+        TreeNode *t = newNode(REPEAT_STMT, lineno);
         match(TK_REPEAT);
         if(t != nullptr){
             t->child[0] = stmt_sequence();
@@ -178,7 +199,7 @@ namespace{
     }
 
     TreeNode* assign_stmt(){
-        TreeNode *t = newNode(ASSIGN_STMT);
+        TreeNode *t = newNode(ASSIGN_STMT, lineno);
         if(t != nullptr && token == TK_ID){
             t->child[0] = factor();
             //t->child[0]->tk->tokenType = TK_ID;
@@ -192,7 +213,7 @@ namespace{
     }
 
     TreeNode* read_stmt(){
-        TreeNode *t = newNode(READ_STMT);
+        TreeNode *t = newNode(READ_STMT, lineno);
         match(TK_READ);
         if(t != nullptr && token == TK_ID){
             t->child[0] = factor();
@@ -200,7 +221,7 @@ namespace{
         return t;
     }
     TreeNode* write_stmt(){
-        TreeNode *t = newNode(WRITE_STMT);
+        TreeNode *t = newNode(WRITE_STMT, lineno);
         match(TK_WRITE);
         if(t != nullptr){
             t->child[0] = or_exp();
@@ -208,7 +229,7 @@ namespace{
         return t;
     }
     TreeNode* while_stmt(){
-        TreeNode *t = newNode(WHILE_STMT);
+        TreeNode *t = newNode(WHILE_STMT, lineno);
         match(TK_WHILE);
         if(t != nullptr){
             t->child[0] = or_exp();
@@ -222,12 +243,12 @@ namespace{
     }
 
     TreeNode* or_exp(){
-        TreeNode *t = newNode(OR_EXP);
+        TreeNode *t = newNode(OR_EXP, lineno);
         if(t != nullptr){
             t->child[0] = and_exp();
         }
-        if(token == TK_OR){
-            match(TK_OR);
+        if(match(TK_OR)){
+            //match(TK_OR);
             if(t != nullptr){
                 t->child[1] = or_exp();
             }
@@ -238,12 +259,12 @@ namespace{
     }
 
     TreeNode* and_exp(){
-        TreeNode *t = newNode(AND_EXP);
+        TreeNode *t = newNode(AND_EXP, lineno);
         if(t != nullptr){
             t->child[0] = comparison_exp();
         }
-        if(token == TK_AND){
-            match(TK_AND);
+        if(match(TK_AND)){
+            //match(TK_AND);
             if(t != nullptr){
                 t->child[1] = and_exp();
             }
@@ -254,7 +275,7 @@ namespace{
     }
 
     TreeNode* comparison_exp(){
-        TreeNode *t = newNode(Void);
+        TreeNode *t = newNode(Void, lineno);
         if(t != nullptr){
             t->child[0] = add_exp();
         }
@@ -292,7 +313,7 @@ namespace{
     }
 
     TreeNode* add_exp(){
-        TreeNode *t = newNode(Void);
+        TreeNode *t = newNode(Void, lineno);
         if(t != nullptr){
             t->child[0] = mul_exp();
         }
@@ -315,7 +336,7 @@ namespace{
     }
 
     TreeNode* mul_exp(){
-        TreeNode *t = newNode(Void);
+        TreeNode *t = newNode(Void, lineno);
         if(t != nullptr){
             t->child[0] = factor();
         }
@@ -338,37 +359,47 @@ namespace{
     }
 
     TreeNode* factor(){
-        TreeNode *t = newNode(FACTOR);
+        TreeNode *t = newNode(FACTOR, lineno);
         switch(token){
             case TK_ID:
                 t->tk = new Token();
                 t->tk->tokenType = TK_ID;
                 t->tk->tokenString = tokenString;
-                t->tk->lineno = lineno;
+                if(st_lookup(tokenString) == -1){
+                    logfile << "unDeclared variable name at line " << lineno << " : " << tokenString << std::endl;
+                    Error = true;
+                }else{
+                    t->valType = st_getType(tokenString);
+                    st_insert(tokenString, t->valType, lineno, 0);  
+                }
                 match(TK_ID);
                 break;
             case TK_NUM:
                 t->tk = new Token();
                 t->tk->tokenType = TK_NUM;
                 t->tk->tokenString = tokenString;
+                t->valType = VT_INT;
                 match(TK_NUM);
                 break;
             case TK_STR:
                 t->tk = new Token();
                 t->tk->tokenType = TK_STR;
                 t->tk->tokenString = tokenString;
+                t->valType = VT_STRING;
                 match(TK_STR);
                 break;
             case TK_TRUE:
                 t->tk = new Token();
                 t->tk->tokenType = TK_TRUE;
                 t->tk->tokenString = tokenString;
+                t->valType = VT_BOOL;
                 match(TK_TRUE);
                 break;
             case TK_FALSE:
                 t->tk = new Token();
                 t->tk->tokenType = TK_FALSE;
                 t->tk->tokenString = tokenString;
+                t->valType = VT_BOOL;
                 match(TK_FALSE);
                 break;
             case TK_LPAREN:

@@ -77,6 +77,8 @@ string
 -
 fstream
 -
+global.h
+/home/yijiull/code/easy/global.h
 symtab.h
 /home/yijiull/code/easy/symtab.h
 unordered_map

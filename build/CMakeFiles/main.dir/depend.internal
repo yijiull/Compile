@@ -26,6 +26,7 @@ CMakeFiles/main.dir/scan.cpp.o
  /home/yijiull/code/easy/scan.h
  /home/yijiull/code/easy/util.h
 CMakeFiles/main.dir/symtab.cpp.o
+ /home/yijiull/code/easy/global.h
  /home/yijiull/code/easy/symtab.cpp
  /home/yijiull/code/easy/symtab.h
 CMakeFiles/main.dir/test.cpp.o

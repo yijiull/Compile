@@ -13,6 +13,10 @@ namespace{
         postProc(t);
     }
 
+    void unDeclaredError(TreeNode *t, std::string s){
+        logfile << "unDeclared variable name at line " << t->lineno << s << std::endl;
+        Error = true;
+    }
     void insertNode(TreeNode *t){
         switch(t->nodetype){
             //case ASSIGN_STMT:
@@ -26,9 +30,10 @@ namespace{
             case FACTOR:
                 if(t->tk->tokenType == TK_ID){
                     if(st_lookup(t->tk->tokenString) == -1){
-                        st_insert(t->tk->tokenString, t->tk->lineno, location++);
+                        unDeclaredError(t, t->tk->tokenString);
+                        //st_insert(t->tk->tokenString, t->tk->lineno, location++);
                     }else{
-                        st_insert(t->tk->tokenString, t->tk->lineno, 0);
+                        st_insert(t->tk->tokenString,t->valType, t->lineno, 0);
                     }
                 }
                 break;
@@ -39,7 +44,7 @@ namespace{
     }
 
     void typeError(TreeNode *t, std::string s){
-        checkfile << "Type error at line " << t->tk->lineno << s << std::endl;
+        logfile << "Type error at line " << t->lineno << ": " << s << std::endl;
         Error = true;
     }
     void checkNode(TreeNode *t){
@@ -49,13 +54,46 @@ namespace{
             case GT_EXP:
             case GE_EXP:
             case EQ_EXP:
-                if(t->child[0]->tk->tokenType != TK_NUM || t->child[1]->tk->tokenType != TK_NUM){
-                    typeError(t, "比较运算符的运算数不是整数");
+                if(t->child[0]->valType != VT_INT || t->child[1]->valType != VT_INT){
+                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "比较运算符的操作数不是int类型");
+                    Error = true;
+                }
+                t->valType = VT_BOOL;
+                break;
+            case OR_EXP:
+            case AND_EXP:
+            case NOT_EXP:
+                if(t->child[0]->valType != VT_BOOL || t->child[1]->valType != VT_BOOL){
+                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "逻辑运算符的操作数不是bool类型");
+                    Error = true;
+                }
+                t->valType = VT_BOOL;
+                break;
+            case PLUS_EXP:
+            case SUB_EXP:
+            case MUL_EXP:
+            case DIV_EXP:
+                if(t->child[0]->valType != VT_INT || t->child[1]->valType != VT_INT){
+                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "算术运算符的操作数不是int类型");
+                    Error = true;
+                }
+                t->valType = VT_INT;
+                break;
+            case IF_STMT:
+            case WHILE_STMT:
+                if(t->child[0]->valType != VT_BOOL){
+                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "IF/WHILE语句的判别式不是bool类型");
+                    Error = true;
                 }
                 break;
-            case FACTOR:
-                if(t->tk->tokenType == TK_NUM){}
-            
+            case ASSIGN_STMT:
+                if(t->child[0]->valType != t->child[1]->valType){
+                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "赋值运算类型不一致");
+                    Error = true;
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -65,7 +103,7 @@ namespace{
 }
 
 void buildSymTable(TreeNode *t){
-    traverse(t, insertNode, nullProc);
+    //traverse(t, insertNode, nullProc); //在建立语法树的时候在parse.cpp中已经同时建立了符号表
     //打印符号表
     printSymTable(symtablefile);
 }
