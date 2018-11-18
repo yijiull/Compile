@@ -40,11 +40,15 @@ namespace{
         Error = true;
     }
 
-    bool match(TokenType expected){
+    bool match(TokenType expected, int flag = 0, std::string m = ""){
         if(token == expected){
             token = getToken();
             return true;
         }else{
+            if(flag){
+                Error = true;
+                log("expected " + m);
+            }
             //syntaxError("unexpexted token ->");
             //printToken(token, tokenString);
             //tokenfile << "       ";
@@ -80,19 +84,22 @@ namespace{
             }
             do{
                 std::string name = tokenString;
+                if(token != TK_ID){
+                    log("declaration does not declare anything");
+                    break;
+                }
                 match(TK_ID);
                 //插入符号表
                 //std::cout << name << ", ";
                 if(st_lookup(name) == -1){
                     st_insert(name, type, lineno, location++);
                 }else{
-                    logfile << "Error at line " << lineno << ": ";
-                    logfile << name << " declared multiple times:)" << std::endl;
+                    log("redeclaration of" + tokenString);
                     //st_insert(name, type, lineno, 0);  //不用插入符号表了，不管它
                 }
             }while(match(TK_COMMA));
             //std::cout << "\n";
-            match(TK_SEMI);
+            match(TK_SEMI, 1, ";");
             temp = token;
         }
         //打印符号表
@@ -127,7 +134,6 @@ namespace{
             t->child[0] = statement();
         }
         if(match(TK_SEMI)){
-            //match(TK_SEMI);
             if(t != nullptr){
                 t->child[1] = stmt_sequence();
             }
@@ -159,7 +165,7 @@ namespace{
                 t = assign_stmt();
                 break;
             default:
-                logfile << "Error at line " << lineno << ", unknown tokens:) "<< tokenString << std::endl;;
+                log("unknown token : " + tokenString);
                 //printToken(token, tokenString);
         }
         return t;
@@ -171,17 +177,16 @@ namespace{
         if(t != nullptr){
             t->child[0] = or_exp();
         }
-        match(TK_THEN);
+        match(TK_THEN, 1, "then");
         if(t != nullptr){
             t->child[1] = stmt_sequence();
         }
         if(match(TK_ELSE)){
-            //match(TK_ELSE);
             if(t != nullptr){
                 t->child[2] = stmt_sequence();
             }
         }
-        match(TK_END);
+        match(TK_END, 1, "end");
         return t;
     }
 
@@ -191,7 +196,7 @@ namespace{
         if(t != nullptr){
             t->child[0] = stmt_sequence();
         }
-        match(TK_UNTIL);
+        match(TK_UNTIL, 1, "until");
         if(t !=  nullptr){
             t->child[1] = or_exp();
         }
@@ -205,7 +210,7 @@ namespace{
             //t->child[0]->tk->tokenType = TK_ID;
             //t->child[0]->tk->tokenString = tokenString;
         }
-        match(TK_ASSIGN);
+        match(TK_ASSIGN, 1, ":=");
         if(t != nullptr){
             t->child[1] = or_exp();
         }
@@ -234,11 +239,11 @@ namespace{
         if(t != nullptr){
             t->child[0] = or_exp();
         }
-        match(TK_DO);
+        match(TK_DO, 1, "do");
         if(t != nullptr){
             t->child[1] = stmt_sequence();
         }
-        match(TK_END);
+        match(TK_END, 1, "end");
         return t;
     }
 
@@ -366,12 +371,12 @@ namespace{
                 t->tk->tokenType = TK_ID;
                 t->tk->tokenString = tokenString;
                 if(st_lookup(tokenString) == -1){
-                    logfile << "unDeclared variable name at line " << lineno << " : " << tokenString << std::endl;
-                    Error = true;
+                    log(tokenString + " was not declared");
                 }else{
                     t->valType = st_getType(tokenString);
                     st_insert(tokenString, t->valType, lineno, 0);  
                 }
+                t->valType = st_getType(tokenString);
                 match(TK_ID);
                 break;
             case TK_NUM:
@@ -407,6 +412,9 @@ namespace{
                 match(TK_LPAREN);
                 t = or_exp();
                 match(TK_RPAREN);
+                break;
+            default:
+                log("expected primary-expression");
                 break;
         }
         return t;

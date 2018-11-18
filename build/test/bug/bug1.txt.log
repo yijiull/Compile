@@ -1,0 +1,4 @@
+test/bug/bug1.txt:15:1 error: expected then
+test/bug/bug1.txt:31:1 error: expected end
+test/bug/bug1.txt:10:1 error: 比较运算符的操作数不是int类型
+test/bug/bug1.txt:10:1 error: IF/WHILE语句的判别式不是bool类型

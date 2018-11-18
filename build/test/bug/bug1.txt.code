@@ -1,0 +1,27 @@
+0) start
+1) write x
+2) if x > ok goto 4
+3) goto 26
+4) x := 10
+5) y := 1
+6) if x > 5 goto 8
+7) goto 12
+8) if y > 0 goto 16
+9) goto 10
+10) if x < 100 goto 16
+11) goto 12
+12) if x > 110 goto 14
+13) goto 19
+14) if ok = true goto 16
+15) goto 19
+16) _t0 := x + 1
+17) x := _t0
+18) goto 25
+19) if x < 100 goto 21
+20) goto 25
+21) _t1 := x * 2
+22) x := _t1
+23) _t2 := y + 1
+24) y := _t2
+25) goto 26
+26) end

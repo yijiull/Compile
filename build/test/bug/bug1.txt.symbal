@@ -1,0 +1,5 @@
+Variable Name    ValType    Location    Line Numbers
+-------------    -------    --------    ------------
+ok               bool       2           3, 10, 17, 
+x                int        0           2, 4, 10, 15, 17, 17, 17, 18, 18, 20, 21, 21, 
+y                int        1           2, 16, 17, 22, 22, 

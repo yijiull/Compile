@@ -1,5 +1,3 @@
-#include <string>
-#include <fstream>
 #include "global.h"
 #include "symtab.h"
 #include <unordered_map>

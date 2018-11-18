@@ -5,6 +5,7 @@ CMakeFiles/main.dir/analyze.cpp.o: ../analyze.cpp
 CMakeFiles/main.dir/analyze.cpp.o: ../analyze.h
 CMakeFiles/main.dir/analyze.cpp.o: ../global.h
 CMakeFiles/main.dir/analyze.cpp.o: ../symtab.h
+CMakeFiles/main.dir/analyze.cpp.o: ../util.h
 
 CMakeFiles/main.dir/cgen.cpp.o: ../cgen.cpp
 CMakeFiles/main.dir/cgen.cpp.o: ../cgen.h
@@ -16,6 +17,7 @@ CMakeFiles/main.dir/main.cpp.o: ../analyze.h
 CMakeFiles/main.dir/main.cpp.o: ../cgen.h
 CMakeFiles/main.dir/main.cpp.o: ../global.h
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
+CMakeFiles/main.dir/main.cpp.o: ../main.h
 CMakeFiles/main.dir/main.cpp.o: ../parse.h
 CMakeFiles/main.dir/main.cpp.o: ../scan.h
 CMakeFiles/main.dir/main.cpp.o: ../util.h
@@ -36,6 +38,8 @@ CMakeFiles/main.dir/symtab.cpp.o: ../global.h
 CMakeFiles/main.dir/symtab.cpp.o: ../symtab.cpp
 CMakeFiles/main.dir/symtab.cpp.o: ../symtab.h
 
+CMakeFiles/main.dir/test.cpp.o: ../global.h
+CMakeFiles/main.dir/test.cpp.o: ../main.h
 CMakeFiles/main.dir/test.cpp.o: ../test.cpp
 
 CMakeFiles/main.dir/util.cpp.o: ../global.h

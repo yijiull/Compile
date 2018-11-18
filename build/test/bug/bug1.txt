@@ -1,0 +1,31 @@
+{以下注释每取消一行都会报错}
+int x, y;
+bool ok;
+write x;
+
+{ok := 1;}  {类型不匹配}
+{int;}  {没有声明变量}
+{int}  {没有声明变量，少分号}
+
+{if x > ok} {少then, 不能进行比较}
+
+{while (x > 10)} {少do}
+
+
+x := 10;
+y := 1;
+if x > 5 and (y > 0 or x < 100) or ((x > 110) and ok = true) then 
+	x := x + 1
+else
+	while x < 100 do
+		x := x * 2;
+		y := y + 1
+	end
+
+
+
+end
+
+
+
+

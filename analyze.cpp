@@ -1,4 +1,5 @@
 #include "global.h"
+#include "util.h"
 #include "symtab.h"
 #include "analyze.h"
 namespace{
@@ -53,43 +54,51 @@ namespace{
             case LE_EXP:
             case GT_EXP:
             case GE_EXP:
-            case EQ_EXP:
                 if(t->child[0]->valType != VT_INT || t->child[1]->valType != VT_INT){
-                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "比较运算符的操作数不是int类型");
-                    Error = true;
+                    log("比较运算符的操作数不是int类型", t->lineno);
+                }else{
+                    t->valType = VT_BOOL;
                 }
-                t->valType = VT_BOOL;
+                break;
+            case EQ_EXP:
+                if(t->child[0]->valType != t->child[1]->valType){
+                    log("相等运算类型不一致", t->lineno);
+                }else{
+                    t->valType = VT_BOOL;
+                }
                 break;
             case OR_EXP:
             case AND_EXP:
             case NOT_EXP:
                 if(t->child[0]->valType != VT_BOOL || t->child[1]->valType != VT_BOOL){
-                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "逻辑运算符的操作数不是bool类型");
-                    Error = true;
+                    log("逻辑运算符的操作数不是bool类型", t->lineno);
+                }else{
+                    t->valType = VT_BOOL;
                 }
-                t->valType = VT_BOOL;
                 break;
             case PLUS_EXP:
             case SUB_EXP:
             case MUL_EXP:
             case DIV_EXP:
                 if(t->child[0]->valType != VT_INT || t->child[1]->valType != VT_INT){
-                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "算术运算符的操作数不是int类型");
-                    Error = true;
+                    log("算术运算符的操作数不是int类型", t->lineno);
+                }else{
+                    t->valType = VT_INT;
                 }
-                t->valType = VT_INT;
                 break;
             case IF_STMT:
             case WHILE_STMT:
                 if(t->child[0]->valType != VT_BOOL){
-                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "IF/WHILE语句的判别式不是bool类型");
-                    Error = true;
+                    log("IF/WHILE语句的判别式不是bool类型", t->lineno);
+                }else{
+                    t->valType = VT_BOOL;
                 }
                 break;
             case ASSIGN_STMT:
                 if(t->child[0]->valType != t->child[1]->valType){
-                    typeError(t, std::string("第" + std::to_string(t->lineno) + "行： ") + "赋值运算类型不一致");
-                    Error = true;
+                    log("赋值运算类型不一致", t->lineno);
+                }else{
+                    t->valType = t->child[0]->valType;
                 }
                 break;
             default:

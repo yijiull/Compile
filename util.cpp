@@ -21,67 +21,67 @@ void printToken(TokenType token, std::string tokenString){
         case TK_STRING:
         case TK_WHILE:
         case TK_DO:
-            tokenfile << "reserved words: " << tokenString << std::endl;
+            tokenfile << "reserved words: (TK_KEY, " << tokenString << ")" << std::endl;
             break;
         case TK_ASSIGN:
-            tokenfile << ":=\n";
+            tokenfile << "(TK_ASSIGN, :=)\n";
             break;
         case TK_LT:
-            tokenfile << "<\n";
+            tokenfile << "(TK_LT, <)\n";
             break;
         case TK_LE:
-            tokenfile << "<=\n";
+            tokenfile << "*TK_LE, <=)\n";
             break;
         case TK_GT:
-            tokenfile << ">\n";
+            tokenfile << "(TK_GT, >)\n";
             break;
         case TK_GE:
-            tokenfile << ">=\n";
+            tokenfile << "(TK_GE, >=)\n";
             break;
         case TK_EQ:
-            tokenfile << "=\n";
+            tokenfile << "(TK_EQ, =)\n";
             break;
         case TK_LPAREN:
-            tokenfile << "(\n";
+            tokenfile << "(TK_LPAREN, \'(\')\n";
             break;
         case TK_RPAREN:
-            tokenfile << ")\n";
+            tokenfile << "(TK_RPAREN, \')\')\n";
             break;
         case TK_SEMI:
-            tokenfile << ";\n";
+            tokenfile << "(TK_SEMI, ;)\n";
             break;
         case TK_PLUS:
-            tokenfile << "+\n";
+            tokenfile << "(TK_PLUS, +)\n";
             break;
         case TK_SUB:
-            tokenfile << "-\n";
+            tokenfile << "(TK_SUB, -)\n";
             break;
         case TK_MUL:
-            tokenfile << "*\n";
+            tokenfile << "(TK_MUL, *)\n";
             break;
         case TK_DIV:
-            tokenfile << "/\n";
+            tokenfile << "(TK_DIV, /)\n";
             break;
         case TK_COMMA:
-            tokenfile << ",\n";
+            tokenfile << "(TK_CMOMA, ,)\n";
             break;
         case TK_ENDFILE:
-            tokenfile << "EOF\n";
+            tokenfile << "(TK_ENDFILE, EOF)\n";
             break;
         case TK_STR:  
-            tokenfile << "TK_STR, val = " << tokenString << std::endl;
+            tokenfile << "(TK_STR, " << tokenString << ")" << std::endl;
             break;
         case TK_NUM:
-            tokenfile << "TK_NUM, val = " << tokenString << std::endl;
+            tokenfile << "(TK_NUM, " << tokenString << ")" << std::endl;
             break;
         case TK_ID:
-            tokenfile << "TK_ID, name = " << tokenString << std::endl;
+            tokenfile << "(TK_ID, " << tokenString << ")" <<  std::endl;
             break;
         case TK_ERROR:
-            tokenfile << "TK_ERROR, name = " << tokenString << std::endl;
+            tokenfile << "(TK_ERROR, " << tokenString << ")" << std::endl;
             break;
         default:
-            tokenfile << "unknown token !! \n";
+            //tokenfile << "unknown token !! \n";
             break;
     }
 }
@@ -96,6 +96,7 @@ TreeNode* newNode(NodeType nodetype, int lineno){
     t->nodetype = nodetype;
     t->tk = nullptr;
     t->lineno = lineno;
+    t->valType = VT_VOID;
     return t;
 }
 
@@ -196,7 +197,7 @@ void printTree(TreeNode *t){
             //    pt(")");
             //    break;
             default:
-                pt("---unknown NodeType  " + t->tk->tokenString);
+                pt("unknown NodeType: " + t->tk->tokenString);
                 break;
         }
         for(int i = 0; i < MAXCHILDREN; i++){
@@ -204,4 +205,9 @@ void printTree(TreeNode *t){
         }
     }
     UNINDENT;
+}
+
+void log(std::string m, int line){
+    Error = true;
+    logfile << file << ":" << line << /*":" << linepos <<*/ " error: " << m << std::endl;
 }

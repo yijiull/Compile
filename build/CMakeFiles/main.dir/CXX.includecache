@@ -9,6 +9,8 @@
 /home/yijiull/code/Compile/analyze.cpp
 global.h
 /home/yijiull/code/Compile/global.h
+util.h
+/home/yijiull/code/Compile/util.h
 symtab.h
 /home/yijiull/code/Compile/symtab.h
 analyze.h
@@ -41,16 +43,20 @@ iostream
 /home/yijiull/code/Compile/main.cpp
 global.h
 /home/yijiull/code/Compile/global.h
+main.h
+/home/yijiull/code/Compile/main.h
 util.h
 /home/yijiull/code/Compile/util.h
-scan.h
-/home/yijiull/code/Compile/scan.h
 parse.h
 /home/yijiull/code/Compile/parse.h
+scan.h
+/home/yijiull/code/Compile/scan.h
 analyze.h
 /home/yijiull/code/Compile/analyze.h
 cgen.h
 /home/yijiull/code/Compile/cgen.h
+
+/home/yijiull/code/Compile/main.h
 
 /home/yijiull/code/Compile/parse.cpp
 global.h
@@ -87,10 +93,6 @@ util.h
 /home/yijiull/code/Compile/scan.h
 
 /home/yijiull/code/Compile/symtab.cpp
-string
--
-fstream
--
 global.h
 /home/yijiull/code/Compile/global.h
 symtab.h
@@ -103,8 +105,10 @@ vector
 /home/yijiull/code/Compile/symtab.h
 
 /home/yijiull/code/Compile/test.cpp
-bits/stdc++.h
--
+global.h
+/home/yijiull/code/Compile/global.h
+main.h
+/home/yijiull/code/Compile/main.h
 
 /home/yijiull/code/Compile/util.cpp
 global.h

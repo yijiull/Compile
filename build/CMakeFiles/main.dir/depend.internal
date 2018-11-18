@@ -6,6 +6,7 @@ CMakeFiles/main.dir/analyze.cpp.o
  /home/yijiull/code/Compile/analyze.h
  /home/yijiull/code/Compile/global.h
  /home/yijiull/code/Compile/symtab.h
+ /home/yijiull/code/Compile/util.h
 CMakeFiles/main.dir/cgen.cpp.o
  /home/yijiull/code/Compile/cgen.cpp
  /home/yijiull/code/Compile/cgen.h
@@ -17,6 +18,7 @@ CMakeFiles/main.dir/main.cpp.o
  /home/yijiull/code/Compile/cgen.h
  /home/yijiull/code/Compile/global.h
  /home/yijiull/code/Compile/main.cpp
+ /home/yijiull/code/Compile/main.h
  /home/yijiull/code/Compile/parse.h
  /home/yijiull/code/Compile/scan.h
  /home/yijiull/code/Compile/util.h
@@ -37,6 +39,8 @@ CMakeFiles/main.dir/symtab.cpp.o
  /home/yijiull/code/Compile/symtab.cpp
  /home/yijiull/code/Compile/symtab.h
 CMakeFiles/main.dir/test.cpp.o
+ /home/yijiull/code/Compile/global.h
+ /home/yijiull/code/Compile/main.h
  /home/yijiull/code/Compile/test.cpp
 CMakeFiles/main.dir/util.cpp.o
  /home/yijiull/code/Compile/global.h

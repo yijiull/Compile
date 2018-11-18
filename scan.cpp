@@ -19,7 +19,6 @@ const int BUFLEN = 256;
 
 namespace{
     std::string linebuf;
-    int linepos = 0;
     int bufsize = 0;
     bool EOF_flag = false;
     std::unordered_map<std::string, TokenType> reversedWords = {
@@ -37,13 +36,23 @@ namespace{
         }
         if(getline(source, linebuf)){
             lineno++;
+            linebuf += "\n";
             bufsize = linebuf.size();
             //std::cout<<linebuf<<std::endl;
             //std::cout<<int(linebuf[bufsize-1])<<std::endl;
             //std::cout<<bufsize<<std::endl;
             linepos = 0;
-			tokenfile << lineno << ": " << linebuf << std::endl;
-            return linebuf[linepos++];
+            std::string temp;
+            if(bufsize){
+                temp = linebuf.substr(linebuf.find_first_not_of("\t"));
+                temp.pop_back();  //去掉换行符
+		    	tokenfile << lineno << ": " << temp << std::endl;
+                return linebuf[linepos++];
+            }else{
+                temp = "";
+		    	tokenfile << lineno << ": " << temp << std::endl;
+                return '\n';
+            }
         }else{
             EOF_flag = true;
             return EOF;
@@ -134,6 +143,9 @@ TokenType getToken(){
                             curTK = TK_COMMA;
                             break;
                         default:
+                        std::cout<<c << " " << lineno <<std::endl;
+                            log("unknown token " + tokenString);
+                            Error = true;
                             curTK = TK_ERROR;
                             break;
                     }
@@ -146,6 +158,10 @@ TokenType getToken(){
                     curTK = TK_ENDFILE;
                 }else if(c == '}'){
                     state = START;
+                }else if(c == '\n' || c == '\r'){
+                    Error = true;
+                    state = DONE;
+                    log("expected \'}\' after comment");
                 }
                 break;
             case INASSINE:
@@ -199,16 +215,20 @@ TokenType getToken(){
                     curTK = TK_STR;
                     state = DONE;
                 }else if(c == '\n'){
+                    log("expected \'");
                     curTK = TK_ERROR;
+                    state = DONE;
                     save = false;
-                    ungetNextChar();
+                    //ungetNextChar();
                 }
                 break;
             case DONE:
                 break;
             default:
                 // never here
-                std::cout<<"bug default at line 200" << std::endl;
+                log("unknown token " + tokenString);
+                Error = true;
+                state = DONE;
                 break;
         }
         if(save && tokenString.size() < MAXTOKENLEN){
@@ -220,10 +240,8 @@ TokenType getToken(){
             }
         }
     }
-#if NO_PARSE
 	tokenfile << "\t" << lineno << ": " << std::flush;
     printToken(curTK, tokenString);
-#endif
     insertToken(curTK);
     return curTK;
 }

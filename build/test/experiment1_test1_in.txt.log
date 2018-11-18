@@ -1,0 +1,6 @@
+test/experiment1_test1_in.txt:10 error: unknown token 
+test/experiment1_test1_in.txt:10 error: unknown token 
+test/experiment1_test1_in.txt:12 error: expected '
+test/experiment1_test1_in.txt:13 error: expected '
+test/experiment1_test1_in.txt:14 error: unknown token 
+test/experiment1_test1_in.txt:15 error: expected '}' after comment

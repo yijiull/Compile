@@ -209,7 +209,7 @@ namespace{
         return name;
     }
 }
-void codeGeneral(TreeNode *t){
+void codeGenerate(TreeNode *t){
     Code *code = newCode();
     code->stmt = "start";
     codes.push_back(code);

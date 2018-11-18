@@ -23,7 +23,7 @@ enum NodeType{
 };
 
 enum ValType{
-    VT_INT, VT_BOOL, VT_STRING
+    VT_VOID, VT_INT, VT_BOOL, VT_STRING
 };
 
 const int MAXRESERVED = 18;
@@ -32,6 +32,7 @@ const int MAXCHILDREN = 3;
 
 extern bool Error;
 extern int lineno;
+extern int linepos;
 extern std::fstream source;
 extern std::fstream tokenfile;
 extern std::fstream symtablefile;
@@ -39,8 +40,9 @@ extern std::fstream codefile;
 extern std::fstream treefile;
 extern std::fstream logfile;
 
-extern int location;
+extern std::string file;
 
+extern int location;
 
 struct Token{
     Token(){};

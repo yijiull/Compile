@@ -1,6 +1,12 @@
 #include "global.h"
+#include "main.h"
 #include "util.h"
+#include "parse.h"
+#include "scan.h"
+#include "analyze.h"
+#include "cgen.h"
 int lineno = 0;
+int linepos = 0;
 
 std::fstream source;
 std::fstream tokenfile;
@@ -8,21 +14,17 @@ std::fstream symtablefile;
 std::fstream codefile;
 std::fstream treefile;
 std::fstream logfile;
+std::string file;
+namespace{
+    std::string out;
+    std::string sym;
+    std::string tree;
+    std::string logf;
+    std::string code;
+}
 
-char *c;
+bool Error = false;
 
-bool Error;
-
-#define NO_PARSE false
-
-#if NO_PARSE
-    #include "scan.h"
-#else
-    #include "parse.h"
-#endif
-
-#include "analyze.h"
-#include "cgen.h"
 
 // read size char from file
 /*
@@ -44,35 +46,78 @@ while(source.read(c, sz)){
 delete[] c;
 */
 
-int main(int argc, char* argv[]){
-    std::string file = std::string(argv[1]);
-    std::string out = file + ".back";
-    std::string sym = file + ".symbal";
-    std::string tree = file + ".tree";
-    std::string log = file + ".log";
-    std::string code = file + ".code";
+//设置源文件
+void setSourceCode(std::string fileName){
+    file = fileName; 
+    out = file + ".token";
+    sym = file + ".symbal";
+    tree = file + ".tree";
+    logf = file + ".log";
+    code = file + ".code";
+}
+//只提取token并打印错误到log
+void getAllToken(){
     source.open(file, std::ios::in);
-#if NO_PARSE
     tokenfile.open(out, std::ios::out);
+    logfile.open(logf, std::ios::out);
     while(getToken()){};
+    std::cout<<"tokens:\n";
     for(auto i : tokens){
-        std::cout<<i->tokenString<<std::endl;
+        std::cout<<"\t"<<i->tokenString<<std::endl;
     }
-#else
+    if(Error){
+        std::cout << std::string("something is wrong, please check the ") + logf << std::endl;
+    }else{
+        std::cout << "Success! please check the file:\n\t" + out << std::endl;  
+    }
+    source.close();
+    tokenfile.close();
+    logfile.close();
+}
+//产生token、中间代码、语法树、符号表、错误日志
+void generateResult(){
+    source.open(file, std::ios::in);
+    tokenfile.open(out, std::ios::out);
     symtablefile.open(sym, std::ios::out);
     treefile.open(tree, std::ios::out);
-    logfile.open(log, std::ios::out);
+    logfile.open(logf, std::ios::out);
     codefile.open(code, std::ios::out);
     TreeNode *t = parse();
     printTree(t);
     buildSymTable(t);
     typeCheck(t);
-    codeGeneral(t);
+    codeGenerate(t);
     if(Error){
-        std::cout << std::string("something is wrong, please check the ") + log << std::endl;
+        std::cout << std::string("something is wrong, please check the ") + logf << std::endl;
     }else{
         std::cout << "Success! please check the files:\n\t" + sym + "\n\t" + tree + "\n\t" + code << std::endl;  
     }
+}
+//从文件中读取内容
+std::string getContent(std::string name){
+    std::fstream source;
+    source.open(name, std::ios::in|std::ios::ate);
+    if(!source.is_open()){
+        std::cout<<"cant not open " + name << std::endl;
+        return 0;
+    }
+    int size = source.tellg();
+    source.seekg(0, std::ios::beg);
+    std::cout<<"size: "<<size<<std::endl;
+    int sz = size;
+    char *c = new char[size];
+    source.read(c, sz);
+    std::string res = std::string(c);
+    delete[] c;
+    return res;
+}
 
-#endif
+int main(int argc, char* argv[]){
+    if(argc == 3){
+        setSourceCode(argv[2]);
+        getAllToken();
+    }else{
+        setSourceCode(argv[1]);
+        generateResult();
+    }
 }
