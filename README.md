@@ -1,4 +1,4 @@
-#Compile
+# Compile
 ***
 
 ```
@@ -15,7 +15,7 @@ make
 ```
 
 ## 实验二生成中间代码
->实验一的测试数据在/Compile/build/test中，experiment2_test1_in.txt和experiment2_test2_in.txt
+>实验二的测试数据在/Compile/build/test中，experiment2_test1_in.txt和experiment2_test2_in.txt
 ```
 ./main  {file}   //file换成测试数据的文件名，注意路径
 ```
