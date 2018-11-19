@@ -16,6 +16,9 @@ std::string tokenString;
 std::vector<Token*> tokens;
 
 const int BUFLEN = 256;
+//这两个变量是为了输出报错信息的时候定位到准确的行，否则有些地方会定位其他地方，暂时先这么处理
+int lastline;
+int newlineTk;  
 
 namespace{
     std::string linebuf;
@@ -36,6 +39,7 @@ namespace{
         }
         if(getline(source, linebuf)){
             lineno++;
+            newlineTk = 0;
             linebuf += "\n";
             bufsize = linebuf.size();
             //std::cout<<linebuf<<std::endl;
@@ -81,6 +85,7 @@ namespace{
 };
 
 TokenType getToken(){
+    lastline = lineno;
     tokenString.clear();
     TokenType curTK;
     StateType state = START;
@@ -144,7 +149,7 @@ TokenType getToken(){
                             break;
                         default:
                         std::cout<<c << " " << lineno <<std::endl;
-                            log("unknown token " + tokenString);
+                            log("unknown token \'" + tokenString + "\'");
                             Error = true;
                             curTK = TK_ERROR;
                             break;
@@ -158,9 +163,9 @@ TokenType getToken(){
                     curTK = TK_ENDFILE;
                 }else if(c == '}'){
                     state = START;
-                }else if(c == '\n' || c == '\r'){
+                }else if(c == '\n' || c == '\r' || c == '\n'){
                     Error = true;
-                    state = DONE;
+                    state = START;
                     log("expected \'}\' after comment");
                 }
                 break;
@@ -226,7 +231,7 @@ TokenType getToken(){
                 break;
             default:
                 // never here
-                log("unknown token " + tokenString);
+                log("unknown token \'" + tokenString + "\'");
                 Error = true;
                 state = DONE;
                 break;
@@ -240,6 +245,8 @@ TokenType getToken(){
             }
         }
     }
+    
+    newlineTk++;
 	tokenfile << "\t" << lineno << ": " << std::flush;
     printToken(curTK, tokenString);
     insertToken(curTK);

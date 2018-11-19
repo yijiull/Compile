@@ -47,7 +47,7 @@ namespace{
         }else{
             if(flag){
                 Error = true;
-                log("expected " + m);
+                log("expected \'" + m + "\'");
             }
             //syntaxError("unexpexted token ->");
             //printToken(token, tokenString);
@@ -133,14 +133,13 @@ namespace{
         if(t != nullptr){
             t->child[0] = statement();
         }
-        if(match(TK_SEMI)){
-            if(t != nullptr){
-                t->child[1] = stmt_sequence();
-            }
-       }else{
-           t = t->child[0];
-       }
-       return t;
+        if(token != TK_ENDFILE && token != TK_END && token != TK_UNTIL && token != TK_ELSE){
+            match(TK_SEMI, 1, ";");
+            t->child[1] = stmt_sequence();
+        }else{
+            t = t->child[0];
+        }
+        return t;
     }
 
     TreeNode* statement(){
@@ -165,7 +164,7 @@ namespace{
                 t = assign_stmt();
                 break;
             default:
-                log("unknown token : " + tokenString);
+                log("unknown token \'" + tokenString + "\'");
                 //printToken(token, tokenString);
         }
         return t;
@@ -210,7 +209,9 @@ namespace{
             //t->child[0]->tk->tokenType = TK_ID;
             //t->child[0]->tk->tokenString = tokenString;
         }
-        match(TK_ASSIGN, 1, ":=");
+        if(!match(TK_ASSIGN, 1, ":=")){
+            token = getToken();
+        }
         if(t != nullptr){
             t->child[1] = or_exp();
         }
@@ -411,7 +412,7 @@ namespace{
                 t->nodetype = OR_EXP;
                 match(TK_LPAREN);
                 t = or_exp();
-                match(TK_RPAREN);
+                match(TK_RPAREN, 1, ")");
                 break;
             default:
                 log("expected primary-expression");
@@ -419,8 +420,6 @@ namespace{
         }
         return t;
     }
-
-
 };
 
 TreeNode* parse(){

@@ -94,6 +94,10 @@ namespace{
                 cgen(t->child[0]);
                 int while_t = codes.size();
                 cgen(t->child[1]);
+                Code * code = newCode();
+                code->stmt = "goto ";
+                code->jump = t->child[0]->B;
+                codes.push_back(code);
                 backpatch(t->child[0]->T, while_t);
                 backpatch(t->child[0]->F, codes.size());
                 break;

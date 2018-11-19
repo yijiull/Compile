@@ -209,5 +209,9 @@ void printTree(TreeNode *t){
 
 void log(std::string m, int line){
     Error = true;
-    logfile << file << ":" << line << /*":" << linepos <<*/ " error: " << m << std::endl;
+    int temp = line;
+    if(line == lineno && newlineTk == 1){
+        temp = lastline;
+    }
+    logfile << file << ":" << temp << /*":" << linepos <<*/ " error: " << m << std::endl;
 }

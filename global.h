@@ -43,6 +43,9 @@ extern std::fstream logfile;
 extern std::string file;
 
 extern int location;
+//
+extern int newlineTk;
+extern int lastline;
 
 struct Token{
     Token(){};

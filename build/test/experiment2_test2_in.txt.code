@@ -1,16 +1,17 @@
 0) start
 1) read x
 2) if x > 0 goto 4
-3) goto 15
+3) goto 16
 4) if x < 100 goto 6
-5) goto 15
+5) goto 16
 6) fact := 1
 7) if x > 0 goto 9
-8) goto 13
+8) goto 14
 9) _t0 := fact * x
 10) fact := _t0
 11) _t1 := x - 1
 12) x := _t1
-13) write fact
-14) goto 15
-15) end
+13) goto 7
+14) write fact
+15) goto 16
+16) end

@@ -1,55 +1,74 @@
     stmt_sequence
         write
             factor:val=x
-        if
-            >
-                factor:val=x
+        stmt_sequence
+            assign
                 factor:val=ok
+                factor:val=1
             stmt_sequence
                 assign
-                    factor:val=x
-                    factor:val=10
-                stmt_sequence
-                    assign
-                        factor:val=y
-                        factor:val=1
-                    if
-                        or
-                            and
-                                >
-                                    factor:val=x
-                                    factor:val=5
-                                or
-                                    >
-                                        factor:val=y
-                                        factor:val=0
-                                    <
-                                        factor:val=x
-                                        factor:val=100
-                            and
-                                >
-                                    factor:val=x
-                                    factor:val=110
-                                =
-                                    factor:val=ok
-                                    factor:val=true
-                        assign
-                            factor:val=x
-                            plus
-                                factor:val=x
-                                factor:val=1
+                    factor:val=ok
+                    factor:val=1
+                if
+                    >
+                        factor:val=x
+                        factor:val=ok
+                    stmt_sequence
                         while
-                            <
+                            >
                                 factor:val=x
-                                factor:val=100
+                                factor:val=10
                             stmt_sequence
                                 assign
                                     factor:val=x
-                                    mul
-                                        factor:val=x
-                                        factor:val=2
-                                assign
-                                    factor:val=y
                                     plus
-                                        factor:val=y
-                                        factor:val=1
+                                        factor:val=x
+                                        factor:val=10
+                                stmt_sequence
+                                    assign
+                                        factor:val=x
+                                        factor:val=10
+                                    stmt_sequence
+                                        assign
+                                            factor:val=y
+                                            factor:val=1
+                                        if
+                                            or
+                                                and
+                                                    >
+                                                        factor:val=x
+                                                        factor:val=5
+                                                    or
+                                                        >
+                                                            factor:val=y
+                                                            factor:val=0
+                                                        <
+                                                            factor:val=x
+                                                            factor:val=100
+                                                and
+                                                    >
+                                                        factor:val=x
+                                                        factor:val=110
+                                                    =
+                                                        factor:val=ok
+                                                        factor:val=true
+                                            assign
+                                                factor:val=x
+                                                plus
+                                                    factor:val=x
+                                                    factor:val=1
+                                            while
+                                                <
+                                                    factor:val=x
+                                                    factor:val=100
+                                                stmt_sequence
+                                                    assign
+                                                        factor:val=x
+                                                        mul
+                                                            factor:val=x
+                                                            factor:val=2
+                                                    assign
+                                                        factor:val=y
+                                                        plus
+                                                            factor:val=y
+                                                            factor:val=1

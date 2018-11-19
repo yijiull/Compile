@@ -92,6 +92,12 @@ void generateResult(){
     }else{
         std::cout << "Success! please check the files:\n\t" + sym + "\n\t" + tree + "\n\t" + code << std::endl;  
     }
+    source.close();
+    tokenfile.close();
+    symtablefile.close();
+    logfile.close();
+    codefile.close();
+    treefile.close();
 }
 //从文件中读取内容
 std::string getContent(std::string name){
