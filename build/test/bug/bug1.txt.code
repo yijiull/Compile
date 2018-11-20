@@ -2,34 +2,47 @@
 1) write x
 2) ok := 1
 3) ok := 1
-4) if x > ok goto 6
-5) goto 34
-6) if x > 10 goto 8
-7) goto 33
-8) _t0 := x + 10
-9) x := _t0
-10) x := 10
-11) y := 1
-12) if x > 5 goto 14
-13) goto 18
-14) if y > 0 goto 22
-15) goto 16
-16) if x < 100 goto 22
-17) goto 18
-18) if x > 110 goto 20
-19) goto 25
-20) if ok = true goto 22
-21) goto 25
-22) _t1 := x + 1
-23) x := _t1
-24) goto 32
-25) if x < 100 goto 27
-26) goto 32
-27) _t2 := x * 2
-28) x := _t2
-29) _t3 := y + 1
-30) y := _t3
-31) goto 25
-32) goto 6
-33) goto 34
-34) end
+4) if A goto 6
+5) goto 47
+6) if B goto 8
+7) goto 47
+8) if ok goto 
+9) goto 
+10) if x > ok goto 12
+11) goto 46
+12) if x > 10 goto 14
+13) goto 45
+14) _t0 := x + 10
+15) x := _t0
+16) x := 10
+17) y := 1
+18) if A goto 22
+19) goto 20
+20) if true goto 22
+21) goto 26
+22) if y > 0 goto 34
+23) goto 24
+24) if x < 100 goto 34
+25) goto 26
+26) if x > 110 goto 32
+27) goto 37
+28) if ok goto 
+29) goto 
+30) if true goto 
+31) goto 
+32) if ok = true goto 34
+33) goto 37
+34) _t1 := x + 1
+35) x := _t1
+36) goto 44
+37) if x < 100 goto 39
+38) goto 44
+39) _t2 := x * 2
+40) x := _t2
+41) _t3 := y + 1
+42) y := _t3
+43) goto 37
+44) goto 12
+45) goto 46
+46) goto 47
+47) end

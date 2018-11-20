@@ -3,19 +3,22 @@ int x, y;
 int;  {没有声明变量}
 int  {没有声明变量，少分号}
 bool ok;
+bool A, B;
 write x;
 
 ok := 1;  {类型不匹配
 
 ok = 1;
+if (A and B);  {bug}
 if x > ok ;{少then,end 类型不同不能进行比较}
+
 
 while (x > 10) {少do, end}
 
 x := ((x + (10);
 x := 10;
 y := 1;
-if (x > 5) and (y > 0 or x < 100) or ((x > 110) and ok = true) then 
+if (A or true) and (y > 0 or x < 100) or ((x > 110) and ok = true) then 
 	x := x + 1
 else
 	while x < 100 do

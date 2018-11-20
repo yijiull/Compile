@@ -17,6 +17,7 @@ namespace{
     void backpatch(int a, int b){
         auto p = codes[a];
         while(p != nullptr){
+            //std::cout<<"hhh\n";
             p->jump = b;
             p = p->nxt;
         }
@@ -45,13 +46,16 @@ namespace{
 
     std::string cgen(TreeNode *t){
         if(t == nullptr){
+            //std::cout<<"nullptr\n";
             return "";
         }
         //std::cout<<t->lineno<<std::endl;
         //std::cout<<t->nodetype<<std::endl;
         std::string name;
+        //std::cout<<t->nodetype<<std::endl;
         switch(t->nodetype){
             case IF_STMT:{
+                //std::cout<<"mmm???"<<std::endl;
                 t->child[0]->B = codes.size();
                 cgen(t->child[0]);
                 int then_b = codes.size();
@@ -65,6 +69,7 @@ namespace{
                 cgen(t->child[2]);
                 code->jump = codes.size();     // !!
                 backpatch(t->child[0]->F, else_b);
+                //std::cout<<"lalal\n";
                 backpatch(t->child[0]->T, then_b);
                 break;
             }
@@ -147,6 +152,7 @@ namespace{
             case AND_EXP:{
                 cgen(t->child[0]);
                 cgen(t->child[1]);
+
                 backpatch(t->child[0]->T, t->child[1]->B);
                 t->B = t->child[0]->B;
                 t->T = t->child[1]->T;
@@ -205,6 +211,19 @@ namespace{
             }
             case FACTOR:{
                 name = t->tk->tokenString;
+                if(t->valType == VT_BOOL){ // 如果原子类型是bool类型，需要进行跳转判断
+                    //std::cout<<"here\n";
+                    t->T = codes.size();
+                    t->B = t->T;
+                    t->F = t->T + 1;
+                    Code *code1 = newCode();
+                    code1->stmt = "if " + t->tk->tokenString + " goto ";
+                    //std::cout<<code1->stmt<<std::endl;
+                    codes.push_back(code1);
+                    Code *code2 = newCode();
+                    code2->stmt = "goto ";
+                    codes.push_back(code2);
+                }
                 break;
             }
             default:

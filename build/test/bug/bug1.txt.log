@@ -2,16 +2,19 @@ test/bug/bug1.txt:1 error: expected '}' after comment
 test/bug/bug1.txt:3 error: declaration does not declare anything
 test/bug/bug1.txt:4 error: declaration does not declare anything
 test/bug/bug1.txt:4 error: expected ';'
-test/bug/bug1.txt:8 error: expected '}' after comment
-test/bug/bug1.txt:10 error: expected ':='
-test/bug/bug1.txt:11 error: expected 'then'
-test/bug/bug1.txt:11 error: unknown token ';'
-test/bug/bug1.txt:13 error: expected 'do'
-test/bug/bug1.txt:15 error: expected ')'
-test/bug/bug1.txt:15 error: expected ')'
-test/bug/bug1.txt:28 error: expected 'end'
-test/bug/bug1.txt:28 error: expected 'end'
-test/bug/bug1.txt:8 error: 赋值运算类型不一致
-test/bug/bug1.txt:10 error: 赋值运算类型不一致
-test/bug/bug1.txt:11 error: 比较运算符的操作数不是int类型
-test/bug/bug1.txt:11 error: IF/WHILE语句的判别式不是bool类型
+test/bug/bug1.txt:9 error: expected '}' after comment
+test/bug/bug1.txt:11 error: expected ':='
+test/bug/bug1.txt:12 error: expected 'then'
+test/bug/bug1.txt:12 error: unknown token ';'
+test/bug/bug1.txt:13 error: expected 'then'
+test/bug/bug1.txt:13 error: unknown token ';'
+test/bug/bug1.txt:16 error: expected 'do'
+test/bug/bug1.txt:18 error: expected ')'
+test/bug/bug1.txt:18 error: expected ')'
+test/bug/bug1.txt:31 error: expected 'end'
+test/bug/bug1.txt:31 error: expected 'end'
+test/bug/bug1.txt:31 error: expected 'end'
+test/bug/bug1.txt:9 error: 赋值运算类型不一致
+test/bug/bug1.txt:11 error: 赋值运算类型不一致
+test/bug/bug1.txt:13 error: 比较运算符的操作数不是int类型
+test/bug/bug1.txt:13 error: IF/WHILE语句的判别式不是bool类型
